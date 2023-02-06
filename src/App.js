@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { useState, useEffect } from "react";
+import Block from "./components/Block";
 
 function App() {
+  const URL =
+    "http://localhost:5000/posts/63dbaf9412e514c68d95c4ba/blocks/63df747cbffb7cf2db872b85";
+
+  const [block, setBlock] = useState({
+    type: "subtitle",
+    text: "...Loading",
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(URL, { mode: "cors" });
+      const json = await response.json();
+      return json;
+    }
+    const res = fetchData();
+    res.then((res) => {
+      setBlock(res.block);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Block block={block} />
     </div>
   );
 }

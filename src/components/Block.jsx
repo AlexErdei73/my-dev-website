@@ -1,20 +1,26 @@
+import "./Block.css";
+
 const Block = (props) => {
   const block = props.block;
   const { type, language, text } = block;
+  let jsx;
   switch (type) {
     case "paragraph":
-      return <p>{text}</p>;
+      jsx = <p className="block__p">{text}</p>;
       break;
     case "subtitle":
-      return <h2>{text}</h2>;
+      jsx = <h2 className="block__h2">{text}</h2>;
       break;
     case "code":
-      return (
-        <pre>
-          <code>{text}</code>
-        </pre>
+      jsx = (
+        <div className="block__code">
+          <pre>
+            <code>{text}</code>
+          </pre>
+        </div>
       );
   }
+  return jsx;
 };
 
 export default Block;

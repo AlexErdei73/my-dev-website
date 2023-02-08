@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { useState, useEffect } from "react";
-import Block from "./components/Block";
+import Post from "./components/Post";
 
 function App() {
 	const URL = "http://localhost:5000/posts/63dbaf9412e514c68d95c4ba";
@@ -22,7 +22,7 @@ function App() {
 
 	return (
 		<div className="App">
-			{post.content.length > 0 && <Block block={post.content[0]} />}
+			<Post post={post} />
 		</div>
 	);
 }

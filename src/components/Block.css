@@ -1,8 +1,8 @@
+.block {
+  max-width: 600px;
+}
 .block__code {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  background: whitesmoke;
-  padding: 0 10px;
-  margin: 10px;
-  border: 2px solid gray;
+  width: 400px;
+  margin: 20px 100px;
 }
 /*# sourceMappingURL=Block.css.map */

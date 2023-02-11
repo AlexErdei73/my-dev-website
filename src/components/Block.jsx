@@ -33,18 +33,20 @@ const Block = (props) => {
       const textWithLinks = addLinks(text, links);
       jsx = (
         <p
-          className="block__p"
+          className="block block__p"
           dangerouslySetInnerHTML={{ __html: textWithLinks }}></p>
       );
       break;
     case "subtitle":
-      jsx = <h2 className="block__h2">{text}</h2>;
+      jsx = <h2 className="block block__h2">{text}</h2>;
       break;
     case "code":
       jsx = (
-        <SyntaxHighlighter language={language} style={vscDarkPlus}>
-          {text}
-        </SyntaxHighlighter>
+        <div className="block block__code">
+          <SyntaxHighlighter language={language} style={vscDarkPlus}>
+            {text}
+          </SyntaxHighlighter>
+        </div>
       );
       break;
     default:

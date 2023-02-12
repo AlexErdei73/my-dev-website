@@ -1,8 +1,15 @@
-@list-right-margin: 30px;
 @nav-bg-color: #979797;
 @nav-color: #07237e;
 @nav-color-hover: #0a32b8;
 @logo-font-size: 32px;
+@list-right-margin: 30px;
+@list-max-height: 500px;
+@list-item-max-width: 150px;
+@gap: 10px;
+@radius: @gap * 2;
+@nav-horizontal-height: 5rem;
+@page-height-turning-point: 400px;
+@page-width-turning-point: 600px;
 
 .nav {
   position: fixed;
@@ -13,8 +20,8 @@
   ul {
     list-style: none;
     margin-right: @list-right-margin;
-    height: calc(100% - 5rem);
-    max-height: 500px;
+    height: calc(100% - @nav-horizontal-height);
+    max-height: @list-max-height;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -39,47 +46,47 @@
         background-color: @nav-color-hover;
       }
       display: block;
-      width: 150px;
+      width: @list-item-max-width;
       text-decoration: none;
-      padding: 10px;
+      padding: @gap;
       background-color: @nav-color;
       color: whitesmoke;
       text-align: center;
-      border-radius: 20px;
+      border-radius: @radius;
     }
   }
 }
 
 .nav-horizontal() {
   .nav {
-    height: 5em;
+    height: @nav-horizontal-height;
     width: 100%;
     ul {
       height: 100%;
       margin-top: 0;
       flex-direction: row;
       align-items: center;
+      gap: @gap;
     }
     &__item {
-      flex: 0 1 150px;
-      padding: 0 20px;
+      flex: 0 1 @list-item-max-width;
       min-width: fit-content;
       a {
         width: 100%;
+        padding: @gap 0;
       }
     }
   }
   .post {
-    margin: 5rem 0;
+    margin: @nav-horizontal-height 0;
   }
 }
 
 .delete-first-item() {
   .nav {
     ul {
-      margin: 0;
+      margin: 0 @gap;
       padding: 0;
-      justify-content: center;
       li {
         &:nth-child(2) {
           display: none;
@@ -97,12 +104,12 @@
   }
 }
 
-@media screen and (max-height: 400px) {
+@media screen and (max-height: @page-height-turning-point) {
   .nav-horizontal();
 }
 
-@media screen and (max-width: 600px) {
-  .nav-horizontal();
+@media screen and (max-width: @page-width-turning-point) {
   .delete-logo();
   .delete-first-item();
+  .nav-horizontal();
 }

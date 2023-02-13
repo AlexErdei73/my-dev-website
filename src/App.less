@@ -13,8 +13,7 @@
 
 // General styles
 .button(@width: fit-content) {
-  //border: none;
-  //outline: none;
+  border: none;
   background-color: @primary-color;
   color: whitesmoke;
   padding: @button-padding-md-y @button-padding-md-x;
@@ -24,4 +23,11 @@
 
 .button-hover {
   background-color: @primary-color-hover;
+}
+
+.input {
+  border-color: @primary-color;
+  border-radius: @radius;
+  outline: none;
+  height: 1.6rem;
 }

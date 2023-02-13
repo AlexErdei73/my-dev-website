@@ -1,10 +1,12 @@
+@import "../App.less";
+
 @nav-bg-color: #979797;
-@nav-color: #07237e;
-@nav-color-hover: #0a32b8;
+@nav-color: @primary-color;
+@nav-color-hover: @primary-color-hover;
 @logo-font-size: 32px;
 @list-right-margin: 30px;
 @list-max-height: 500px;
-@list-item-max-width: 150px;
+@list-item-max-width: 140px;
 @gap: 10px;
 @radius: @gap * 2;
 @nav-horizontal-height: 5rem;
@@ -43,14 +45,11 @@
   &__item {
     a {
       &:hover {
-        background-color: @nav-color-hover;
+        .button-hover();
       }
+      .button(@list-item-max-width);
       display: block;
-      width: @list-item-max-width;
       text-decoration: none;
-      padding: @gap;
-      background-color: @nav-color;
-      color: whitesmoke;
       text-align: center;
       border-radius: @radius;
     }
@@ -77,8 +76,12 @@
       }
     }
   }
-  .post {
-    margin: @nav-horizontal-height 0;
+  .post,
+  .about,
+  .signup,
+  .login,
+  .posts {
+    margin: @nav-horizontal-height 0 !important;
   }
 }
 

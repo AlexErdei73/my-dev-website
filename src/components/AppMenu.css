@@ -1,3 +1,12 @@
+.App {
+  background: lightgrey;
+  color: black;
+  height: 100vh;
+  overflow: hidden;
+}
+.button-hover {
+  background-color: #0a32b8;
+}
 .nav {
   position: fixed;
   top: 0;
@@ -27,12 +36,12 @@
   color: #07237e;
 }
 .nav__item a {
-  display: block;
-  width: 150px;
-  text-decoration: none;
-  padding: 10px;
   background-color: #07237e;
   color: whitesmoke;
+  padding: 10px 20px;
+  width: 140px;
+  display: block;
+  text-decoration: none;
   text-align: center;
   border-radius: 20px;
 }
@@ -52,15 +61,19 @@
     gap: 10px;
   }
   .nav__item {
-    flex: 0 1 150px;
+    flex: 0 1 140px;
     min-width: fit-content;
   }
   .nav__item a {
     width: 100%;
     padding: 10px 0;
   }
-  .post {
-    margin: 5rem 0;
+  .post,
+  .about,
+  .signup,
+  .login,
+  .posts {
+    margin: 5rem 0 !important;
   }
 }
 @media screen and (max-width: 600px) {
@@ -86,15 +99,19 @@
     gap: 10px;
   }
   .nav__item {
-    flex: 0 1 150px;
+    flex: 0 1 140px;
     min-width: fit-content;
   }
   .nav__item a {
     width: 100%;
     padding: 10px 0;
   }
-  .post {
-    margin: 5rem 0;
+  .post,
+  .about,
+  .signup,
+  .login,
+  .posts {
+    margin: 5rem 0 !important;
   }
 }
 /*# sourceMappingURL=AppMenu.css.map */

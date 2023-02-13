@@ -1,26 +1,28 @@
 import "./AppMenu.css";
+import { Link } from "react-router-dom";
+import React from "react";
 
 const AppMenu = () => {
   return (
     <nav className="nav">
       <ul>
         <li className="nav__logo">
-          <a href="/">LOGO</a>
+          <Link to="/">LOGO</Link>
         </li>
         <li className="nav__item">
-          <a href="/about">About</a>
+          <Link to="/about">About</Link>
         </li>
         <li className="nav__item">
-          <a href="/home">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li className="nav__item">
-          <a href="/posts">Posts</a>
+          <Link to="/posts">Posts</Link>
         </li>
         <li className="nav__item">
-          <a href="/login">Login</a>
+          <Link to="/login">Login</Link>
         </li>
         <li className="nav__item">
-          <a href="/signup">Sign Up</a>
+          <Link to="/signup">Sign Up</Link>
         </li>
       </ul>
     </nav>

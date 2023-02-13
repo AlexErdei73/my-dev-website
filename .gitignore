@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # LESS files
-.css.map
-.css
+*.css.map
+*.css

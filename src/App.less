@@ -1,6 +1,27 @@
+@primary-color: #07237e;
+@primary-color-hover: #0a32b8;
+@button-padding-md-y: 10px;
+@button-padding-md-x: 20px;
+@radius: 5px;
+
 .App {
   background: lightgrey;
   color: black;
   height: 100vh;
   overflow: hidden;
+}
+
+// General styles
+.button(@width: fit-content) {
+  //border: none;
+  //outline: none;
+  background-color: @primary-color;
+  color: whitesmoke;
+  padding: @button-padding-md-y @button-padding-md-x;
+  width: @width;
+  border-radius: @radius;
+}
+
+.button-hover {
+  background-color: @primary-color-hover;
 }

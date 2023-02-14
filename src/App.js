@@ -35,6 +35,9 @@ function App() {
       setPost(json.post);
     }
     fetchData();
+    //get loginState from localStorage
+    const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
+    if (initialLoginState) setLoginState(initialLoginState);
   }, []);
 
   async function onSubmit(loginForm) {
@@ -46,10 +49,30 @@ function App() {
       newLoginState.msg = response.msg;
       newLoginState.user.username = response.user.username;
       newLoginState.token = response.token;
+      if (response.success) {
+        //user logged in successfully
+        newLoginState.user.password = ""; //Do not store password as it is sensitive information!!!
+        //Store newLoginState, which contains the token, in localStorage
+        localStorage.setItem("loginState", JSON.stringify(newLoginState));
+      }
       setLoginState(newLoginState);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  function logout() {
+    const newLoginState = {
+      success: false,
+      user: {
+        username: "",
+        password: "",
+      },
+      token: "",
+      msg: "",
+    };
+    localStorage.removeItem("loginState");
+    setLoginState(newLoginState);
   }
 
   return (
@@ -67,6 +90,7 @@ function App() {
                 submit={onSubmit}
                 loginState={loginState}
                 setLoginState={setLoginState}
+                logout={logout}
               />
             }
           />

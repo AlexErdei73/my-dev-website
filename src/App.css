@@ -7,4 +7,10 @@
 .button-hover {
   background-color: #0a32b8;
 }
+.input {
+  border-color: #07237e;
+  border-radius: 5px;
+  outline: none;
+  height: 1.6rem;
+}
 /*# sourceMappingURL=App.css.map */

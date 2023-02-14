@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.css";
 
 const Login = (props) => {
-  const { submit, loginState, setLoginState } = props;
+  const { submit, loginState, setLoginState, logout } = props;
   const { user } = loginState;
 
   function handleChange(event) {
@@ -13,11 +13,18 @@ const Login = (props) => {
   }
 
   let jsx;
-  if (loginState.success)
+  if (loginState.success) {
+    console.log("username: ", user.username);
     jsx = (
-      <h1 className="login">{`${loginState.user.username} is logged in!`}</h1>
+      <div className="logout">
+        <h1 className="logout__title">Welcome {user.username}!</h1>
+        <p>You are currently logged in.</p>
+        <button type="button" onClick={logout} className="logout__button">
+          Logout
+        </button>
+      </div>
     );
-  else
+  } else
     jsx = (
       <form
         className="login"

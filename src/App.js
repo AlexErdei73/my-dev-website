@@ -47,7 +47,6 @@ function App() {
       const newLoginState = JSON.parse(JSON.stringify(loginState));
       newLoginState.success = response.success;
       newLoginState.msg = response.msg;
-      newLoginState.user.username = response.user.username;
       newLoginState.token = response.token;
       if (response.success) {
         //user logged in successfully
@@ -58,6 +57,9 @@ function App() {
       setLoginState(newLoginState);
     } catch (error) {
       console.error(error);
+      const newLoginState = { ...loginState };
+      newLoginState.msg = error.message;
+      setLoginState(newLoginState);
     }
   }
 

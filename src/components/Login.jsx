@@ -3,7 +3,7 @@ import "./Login.css";
 
 const Login = (props) => {
   const { submit, loginState, setLoginState, logout } = props;
-  const { user } = loginState;
+  const { user, msg } = loginState;
 
   function handleChange(event) {
     const name = event.target.id;
@@ -32,7 +32,7 @@ const Login = (props) => {
           event.preventDefault();
           submit(loginState.user);
         }}
-        validate
+        validate="true"
       >
         <h1 className="login__title">Login</h1>
         <label htmlFor="username">Username*</label>
@@ -56,6 +56,7 @@ const Login = (props) => {
         <button type="submit" className="login__button">
           Login
         </button>
+        {msg && <div className="login__message">{msg}</div>}
       </form>
     );
   return jsx;

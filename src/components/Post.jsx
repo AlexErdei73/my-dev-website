@@ -7,7 +7,7 @@ const Post = (props) => {
   const { title, author, content, comments } = props.post;
   return (
     <article className="post">
-      <PostTitle title={title} />
+      <PostTitle title={title} edit={true} />
       {content.map((block) => (
         <Block key={block._id} block={block} />
       ))}

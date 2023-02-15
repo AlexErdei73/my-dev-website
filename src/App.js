@@ -77,12 +77,18 @@ function App() {
     setLoginState(newLoginState);
   }
 
+  function submitTitle(title) {
+    const newPost = { ...post };
+    newPost.title = title;
+    setPost(newPost);
+  }
+
   return (
     <div className="App">
       <Router>
         <AppMenu />
         <Routes>
-          <Route path="/" element={<Post post={post} />} />
+          <Route path="/" element={<Post post={post} submit={submitTitle} />} />
           <Route path="/about" element={<About />} />
           <Route path="/posts" element={<Posts />} />
           <Route

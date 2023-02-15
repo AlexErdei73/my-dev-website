@@ -2,17 +2,27 @@
 
 @gap: 10px;
 
-.post-title {
+.flex {
   display: flex;
   align-items: center;
   gap: @gap;
+}
+
+.post-title {
+  .flex();
   &__title {
     margin: 0;
+  }
+  &__form {
+    .flex();
   }
   button {
     .button();
   }
   button:hover {
     .button-hover();
+  }
+  input {
+    .input();
   }
 }

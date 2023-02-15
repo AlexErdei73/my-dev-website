@@ -1,12 +1,13 @@
 import React from "react";
 import Block from "./Block";
+import PostTitle from "./PostTitle";
 import "./Post.css";
 
 const Post = (props) => {
   const { title, author, content, comments } = props.post;
   return (
     <article className="post">
-      <h1 className="post__title">{title}</h1>
+      <PostTitle title={title} />
       {content.map((block) => (
         <Block key={block._id} block={block} />
       ))}

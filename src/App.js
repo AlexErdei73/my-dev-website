@@ -8,7 +8,7 @@ import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { login } from "./backend/backend";
+import { login, updatePost } from "./backend/backend";
 
 function App() {
   const URL = "http://localhost:5000/posts/63dbaf9412e514c68d95c4ba";
@@ -77,10 +77,16 @@ function App() {
     setLoginState(newLoginState);
   }
 
-  function submitTitle(title) {
+  async function submitTitle(title) {
     const newPost = { ...post };
     newPost.title = title;
     setPost(newPost);
+    try {
+      const response = await updatePost(newPost, loginState.token);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

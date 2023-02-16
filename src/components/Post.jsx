@@ -10,7 +10,7 @@ const Post = (props) => {
     <article className="post">
       <PostTitle title={title} edit={true} submit={submit} />
       {content.map((block) => (
-        <Block key={block._id} block={block} />
+        <Block key={block._id} block={block} edit={true} />
       ))}
     </article>
   );

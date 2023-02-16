@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import EditBlock from "./EditBlock";
 import "./Block.css";
 
 const Block = (props) => {
-  const block = props.block;
+  const { block, edit } = props;
   const { type, language, text, links } = block;
+
+  const [editing, setEditing] = useState(false);
+
   let jsx;
   switch (type) {
     case "paragraph":
@@ -53,7 +57,17 @@ const Block = (props) => {
     default:
       jsx = <></>;
   }
-  return <div className="block">{jsx}</div>;
+  return (
+    <div className="block">
+      {!editing && jsx}
+      {edit && !editing && (
+        <button type="button" onClick={() => setEditing(true)}>
+          Edit
+        </button>
+      )}
+      {editing && <EditBlock block={block} submit={() => setEditing(false)} />}
+    </div>
+  );
 };
 
 export default Block;

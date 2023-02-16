@@ -1,1 +1,1 @@
-{"version":3,"sources":["Block.less"],"names":[],"mappings":"AAKA;EACE,gBAAA;;AACA,MAAC;EACC,YAAA;EACA,iBAAA","file":"Block.css"}
+{"version":3,"sources":["/home/alex73/my-dev-website/src/App.less","Block.less"],"names":[],"mappings":"AAMA;EACE,qBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;;AAaF;EACE,yBAAA;;AAGF;EACE,qBAAA;EACA,kBAAA;EACA,aAAA;EACA,cAAA;;ACtBF;EACE,gBAAA;EACA,aAAA;EACA,uBAAA;EACA,SAAA;EACA,YAAA;;AALF,MAME;EDAA,YAAA;EACA,yBAAA;EACA,iBAAA;EACA,kBAAA;EACA,kBAAA;EACA,kBAAA;;ACXF,MASE,OAAM;EDMN,yBAAA;;ACHA,MAAC;EACC,YAAA;EACA,cAAA","file":"Block.css"}

@@ -1,10 +1,24 @@
+@import "../App.less";
+
 @block-max-with: 600px;
 @code-block-width: 400px;
 @code-block-x-margin: auto;
-@code-block-y-margin: 20px;
+@code-block-y-margin: 0;
+@gap: 10px;
+@margin: @gap;
 
 .block {
   max-width: @block-max-with;
+  display: flex;
+  align-items: flex-start;
+  gap: @gap;
+  margin: @margin;
+  button {
+    .button();
+  }
+  button:hover {
+    .button-hover();
+  }
   &__code {
     width: @code-block-width;
     margin: @code-block-y-margin @code-block-x-margin;

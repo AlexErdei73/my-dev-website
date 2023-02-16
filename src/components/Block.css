@@ -1,8 +1,38 @@
+.App {
+  background: lightgrey;
+  color: black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.button-hover {
+  background-color: #0a32b8;
+}
+.input {
+  border-color: #07237e;
+  border-radius: 5px;
+  outline: none;
+  height: 1.6rem;
+}
 .block {
   max-width: 600px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 10px;
+}
+.block button {
+  border: none;
+  background-color: #07237e;
+  color: whitesmoke;
+  padding: 10px 20px;
+  width: fit-content;
+  border-radius: 5px;
+}
+.block button:hover {
+  background-color: #0a32b8;
 }
 .block__code {
   width: 400px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 /*# sourceMappingURL=Block.css.map */

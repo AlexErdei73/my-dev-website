@@ -22,6 +22,35 @@ const EditBlock = (props) => {
     return text.join("");
   }
 
+  function separateLinksFromText(textInput) {
+    const textPieces = textInput.split("](");
+    const links = [];
+    let position = 0;
+    textPieces.forEach((piece, index) => {
+      const previousPiece = textPieces[index - 1];
+      console.log(piece, index);
+      if (previousPiece && previousPiece.indexOf("[") !== -1) {
+        const pieces = previousPiece.split("[");
+        textPieces[index - 1] = pieces[0];
+        position += pieces[0].length;
+        links.push({ description: pieces[1] });
+      }
+      if (piece.indexOf(")") !== -1) {
+        const pieces = piece.split(")");
+        const link = links.pop();
+        if (link) {
+          link.url = pieces[0];
+          link.position = position;
+          links.push(link);
+          textPieces[index] = pieces[1];
+        }
+      }
+    });
+    return { links: links, text: textPieces.join("") };
+  }
+
+  console.log(separateLinksFromText(textWithLinks(block)));
+
   return (
     <form
       className="edit-block"

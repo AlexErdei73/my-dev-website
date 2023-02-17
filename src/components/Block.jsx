@@ -65,7 +65,13 @@ const Block = (props) => {
           Edit
         </button>
       )}
-      {editing && <EditBlock block={block} submit={() => setEditing(false)} />}
+      {editing && (
+        <EditBlock
+          block={block}
+          submit={() => setEditing(false)}
+          className="edit-block"
+        />
+      )}
     </div>
   );
 };

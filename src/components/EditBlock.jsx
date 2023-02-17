@@ -1,7 +1,27 @@
 import React from "react";
+import "./EditBlock.css";
 
 const EditBlock = (props) => {
   const { block, submit } = props;
+
+  function numberOfLines(text) {
+    return text.split("\n").length;
+  }
+
+  function textWithLinks(block) {
+    const text = [];
+    let previousPosition = 0;
+    block.links.forEach((link) => {
+      const nextTextPiece = block.text.slice(previousPosition, link.position);
+      if (nextTextPiece) text.push(nextTextPiece);
+      text.push(`[${link.description}](${link.url})`);
+      previousPosition = link.position;
+    });
+    const nextTextPiece = block.text.slice(previousPosition, block.text.length);
+    if (nextTextPiece) text.push(nextTextPiece);
+    return text.join("");
+  }
+
   return (
     <form
       className="edit-block"
@@ -10,19 +30,41 @@ const EditBlock = (props) => {
         submit();
       }}
     >
-      {block.type === "subtitle" && (
-        <input
-          type="text"
-          value={block.text}
-          required="true"
-          classname="edit-block__input"
-        />
-      )}
-      {block.type !== "subtitle" && (
-        <textarea className="edit-block__textarea">{block.text}</textarea>
-      )}
-      <button type="submit">Submit</button>
-      <button type="button">Cancel</button>
+      <div className="input-container">
+        {block.type === "subtitle" && (
+          <input
+            type="text"
+            value={block.text}
+            required="true"
+            classname="edit-block__input"
+          />
+        )}
+        {block.type !== "subtitle" && (
+          <textarea
+            className="edit-block__textarea"
+            rows={numberOfLines(textWithLinks(block))}
+            value={textWithLinks(block)}
+          ></textarea>
+        )}
+        <div className="type-area">
+          <select name="type" id="type">
+            <option value="paragraph">Paragraph</option>
+            <option value="subtitle">Subtitle</option>
+            <option value="code">Code</option>
+          </select>
+          {block.type === "code" && (
+            <select name="language" id="language">
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
+            </select>
+          )}
+        </div>
+      </div>
+      <div className="button-container">
+        <button type="submit">Submit</button>
+        <button type="button">Cancel</button>
+      </div>
     </form>
   );
 };

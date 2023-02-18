@@ -25,3 +25,20 @@ export async function updatePost(post, token) {
   const json = await response.json();
   return json;
 }
+
+export async function updateBlock(block, token) {
+  const response = await fetch(
+    `http://localhost:5000/posts/${block.post}/blocks/${block._id}`,
+    {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(block),
+    }
+  );
+  const json = await response.json();
+  return json;
+}

@@ -8,7 +8,7 @@ import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { login, updatePost } from "./backend/backend";
+import { login, updatePost, updateBlock } from "./backend/backend";
 
 function App() {
   const URL = "http://localhost:5000/posts/63dbaf9412e514c68d95c4ba";
@@ -89,11 +89,17 @@ function App() {
     }
   }
 
-  function submitBlock(block) {
+  async function submitBlock(block) {
     const newPost = JSON.parse(JSON.stringify(post));
     const index = newPost.content.findIndex((bl) => bl._id === block._id);
     newPost.content[index] = { ...block };
     setPost(newPost);
+    try {
+      const response = await updateBlock(block, loginState.token);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

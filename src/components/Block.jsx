@@ -5,7 +5,7 @@ import EditBlock from "./EditBlock";
 import "./Block.css";
 
 const Block = (props) => {
-  const { block, edit } = props;
+  const { block, edit, submit } = props;
   const { type, language, text, links } = block;
 
   const [editing, setEditing] = useState(false);
@@ -68,7 +68,11 @@ const Block = (props) => {
       {editing && (
         <EditBlock
           block={block}
-          submit={() => setEditing(false)}
+          submit={(block) => {
+            setEditing(false);
+            submit(block);
+          }}
+          cancel={() => setEditing(false)}
           className="edit-block"
         />
       )}

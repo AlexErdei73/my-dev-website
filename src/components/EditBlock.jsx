@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EditBlock.css";
 
 const EditBlock = (props) => {
-  const { block, submit } = props;
+  const { block, submit, cancel } = props;
+
+  const [newBlock, setNewBlock] = useState(block);
 
   function numberOfLines(text) {
     return text.split("\n").length;
@@ -49,21 +51,35 @@ const EditBlock = (props) => {
     return { links: links, text: textPieces.join("") };
   }
 
-  console.log(separateLinksFromText(textWithLinks(block)));
+  function handleChange(event) {
+    const id = event.target.id;
+    console.log(id);
+    const copyBlock = { ...newBlock };
+    if (id === "text" && newBlock.type === "paragraph") {
+      const output = separateLinksFromText(event.target.value);
+      copyBlock.text = output.text;
+      copyBlock.links = output.links;
+    } else {
+      copyBlock[id] = event.target.value;
+    }
+    setNewBlock(copyBlock);
+  }
 
   return (
     <form
       className="edit-block"
       onSubmit={(event) => {
         event.preventDefault();
-        submit();
+        submit(newBlock);
       }}
     >
       <div className="input-container">
         {block.type === "subtitle" && (
           <input
             type="text"
-            value={block.text}
+            value={newBlock.text}
+            onChange={handleChange}
+            id="text"
             required="true"
             classname="edit-block__input"
           />
@@ -71,18 +87,30 @@ const EditBlock = (props) => {
         {block.type !== "subtitle" && (
           <textarea
             className="edit-block__textarea"
-            rows={numberOfLines(textWithLinks(block))}
-            value={textWithLinks(block)}
+            rows={numberOfLines(textWithLinks(newBlock))}
+            value={textWithLinks(newBlock)}
+            onChange={handleChange}
+            id="text"
           ></textarea>
         )}
         <div className="type-area">
-          <select name="type" id="type">
+          <select
+            name="type"
+            id="type"
+            value={newBlock.type}
+            onChange={handleChange}
+          >
             <option value="paragraph">Paragraph</option>
             <option value="subtitle">Subtitle</option>
             <option value="code">Code</option>
           </select>
           {block.type === "code" && (
-            <select name="language" id="language">
+            <select
+              name="language"
+              id="language"
+              value={newBlock.language}
+              onChange={handleChange}
+            >
               <option value="html">HTML</option>
               <option value="css">CSS</option>
               <option value="javascript">JavaScript</option>
@@ -92,7 +120,15 @@ const EditBlock = (props) => {
       </div>
       <div className="button-container">
         <button type="submit">Submit</button>
-        <button type="button">Cancel</button>
+        <button
+          type="button"
+          onClick={() => {
+            setNewBlock(block);
+            cancel();
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

@@ -89,12 +89,28 @@ function App() {
     }
   }
 
+  function submitBlock(block) {
+    const newPost = JSON.parse(JSON.stringify(post));
+    const index = newPost.content.findIndex((bl) => bl._id === block._id);
+    newPost.content[index] = { ...block };
+    setPost(newPost);
+  }
+
   return (
     <div className="App">
       <Router>
         <AppMenu />
         <Routes>
-          <Route path="/" element={<Post post={post} submit={submitTitle} />} />
+          <Route
+            path="/"
+            element={
+              <Post
+                post={post}
+                submit={submitTitle}
+                submitBlock={submitBlock}
+              />
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/posts" element={<Posts />} />
           <Route

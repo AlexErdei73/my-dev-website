@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorMsg from "./ErrorMsg";
 import "./Login.css";
 
 const Login = (props) => {
@@ -56,7 +57,7 @@ const Login = (props) => {
         <button type="submit" className="login__button">
           Login
         </button>
-        {msg && <div className="login__message">{msg}</div>}
+        {msg && <ErrorMsg msg={msg} />}
       </form>
     );
   return jsx;

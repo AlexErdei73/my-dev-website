@@ -18,6 +18,8 @@ function App() {
     content: [],
   });
 
+  const [postErrors, setPostErrors] = useState([]);
+
   const [loginState, setLoginState] = useState({
     success: false,
     user: {
@@ -83,9 +85,11 @@ function App() {
     setPost(newPost);
     try {
       const response = await updatePost(newPost, loginState.token);
-      console.log(response);
+      if (!response.success) {
+        setPostErrors(response.errors);
+      }
     } catch (error) {
-      console.error(error);
+      setPostErrors([error]);
     }
   }
 

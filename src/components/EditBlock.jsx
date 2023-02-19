@@ -30,7 +30,6 @@ const EditBlock = (props) => {
     let position = 0;
     textPieces.forEach((piece, index) => {
       const previousPiece = textPieces[index - 1];
-      console.log(piece, index);
       if (previousPiece && previousPiece.indexOf("[") !== -1) {
         const pieces = previousPiece.split("[");
         textPieces[index - 1] = pieces[0];
@@ -53,7 +52,6 @@ const EditBlock = (props) => {
 
   function handleChange(event) {
     const id = event.target.id;
-    console.log(id);
     const copyBlock = { ...newBlock };
     if (id === "text" && newBlock.type === "paragraph") {
       const output = separateLinksFromText(event.target.value);

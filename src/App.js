@@ -88,7 +88,7 @@ function App() {
       const response = await updatePost(newPost, loginState.token);
       setPostErrors(response.errors);
     } catch (error) {
-      setPostErrors([error]);
+      setPostErrors([{ msg: error.message }]);
     }
   }
 

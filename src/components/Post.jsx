@@ -4,11 +4,12 @@ import PostTitle from "./PostTitle";
 import "./Post.css";
 
 const Post = (props) => {
-  const { submit, submitBlock } = props;
+  const { submit, submitBlock, errors } = props;
   const { title, author, content, comments } = props.post;
+
   return (
     <article className="post">
-      <PostTitle title={title} edit={true} submit={submit} />
+      <PostTitle title={title} edit={true} submit={submit} errors={errors} />
       {content.map((block) => (
         <Block key={block._id} block={block} edit={true} submit={submitBlock} />
       ))}

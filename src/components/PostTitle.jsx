@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
+import ErrorMsg from "./ErrorMsg";
 import "./PostTitle.css";
 
 const PostTitle = (props) => {
-  const { title, edit, submit } = props;
+  const { title, edit, submit, errors } = props;
 
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(errors.length !== 0);
   const [newTitle, setNewTitle] = useState(title);
 
   useEffect(() => {
     setNewTitle(title);
-  }, [title]);
+    setEditing(errors.length !== 0);
+  }, [title, errors]);
 
   function handleChange(event) {
     setNewTitle(event.target.value);
@@ -33,25 +35,34 @@ const PostTitle = (props) => {
         </button>
       )}
       {editing && (
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            setEditing(false);
-            submit(newTitle);
-          }}
-          className="post-title__form"
-        >
-          <input
-            type="text"
-            value={newTitle}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">Submit</button>
-          <button type="button" onClick={cancel}>
-            Cancel
-          </button>
-        </form>
+        <div>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setEditing(false);
+              submit(newTitle);
+            }}
+            className="post-title__form"
+          >
+            <input
+              type="text"
+              value={newTitle}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Submit</button>
+            {errors.length === 0 && (
+              <button type="button" onClick={cancel}>
+                Cancel
+              </button>
+            )}
+          </form>
+          <div className="post-title__errors">
+            {errors.map((error, index) => (
+              <ErrorMsg key={index} msg={error.msg} />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

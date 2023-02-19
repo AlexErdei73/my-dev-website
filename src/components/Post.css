@@ -1,5 +1,21 @@
+.App {
+  background: lightgrey;
+  color: black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.button-hover {
+  background-color: #0a32b8;
+}
+.input {
+  border-color: #07237e;
+  border-radius: 5px;
+  height: 1.6rem;
+}
 .post {
   margin-left: 250px;
+  padding: 10px;
   min-height: 100vh;
+  max-width: 600px;
 }
 /*# sourceMappingURL=Post.css.map */

@@ -1,7 +1,4 @@
 @import "../App.less";
-@import "./Block.less";
-
-@gap: 10px;
 
 .flex-row {
   display: flex;
@@ -16,6 +13,7 @@
 }
 
 .edit-block {
+  width: 100%;
   .flex-col();
   .input-container {
     .flex-row();
@@ -32,6 +30,6 @@
     justify-content: space-between;
   }
   &__textarea {
-    width: @code-block-width;
+    flex-grow: 1;
   }
 }

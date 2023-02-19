@@ -1,1 +1,1 @@
-{"version":3,"sources":["Post.less"],"names":[],"mappings":"AAAA;EACE,kBAAA;EACA,iBAAA","file":"Post.css"}
+{"version":3,"sources":["/home/alex73/my-dev-website/src/App.less","Post.less"],"names":[],"mappings":"AAYA;EACE,qBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;;AAaF;EACE,yBAAA;;AAGF;EACE,qBAAA;EACA,kBAAA;EACA,cAAA;;AClCF;EACE,kBAAA;EACA,aAAA;EACA,iBAAA;EACA,gBAAA","file":"Post.css"}

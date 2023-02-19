@@ -1,11 +1,9 @@
 @import "../App.less";
 
-@gap: 10px;
-
 .flex {
   display: flex;
-  align-items: center;
-  gap: @gap;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .post-title {
@@ -14,7 +12,9 @@
     margin: 0;
   }
   &__form {
+    width: 100%;
     .flex();
+    gap: @gap;
   }
   button {
     .button();
@@ -23,6 +23,7 @@
     .button-hover();
   }
   input {
+    flex-grow: 1;
     .input();
   }
 }

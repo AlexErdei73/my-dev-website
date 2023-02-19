@@ -1,18 +1,15 @@
 @import "../App.less";
 
-@block-max-with: 600px;
-@code-block-width: 400px;
-@code-block-x-margin: auto;
-@code-block-y-margin: 0;
-@gap: 10px;
-@margin: @gap;
-
 .block {
-  max-width: @block-max-with;
+  max-width: @post-width;
+  margin: @gap 0 0;
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: @gap;
-  margin: @margin;
+  p {
+    margin: 0;
+  }
   button {
     .button();
   }
@@ -20,7 +17,9 @@
     .button-hover();
   }
   &__code {
-    width: @code-block-width;
-    margin: @code-block-y-margin @code-block-x-margin;
+    width: 100%;
+    pre {
+      margin: 0 !important;
+    }
   }
 }

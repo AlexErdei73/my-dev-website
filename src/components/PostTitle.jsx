@@ -35,7 +35,7 @@ const PostTitle = (props) => {
         </button>
       )}
       {editing && (
-        <div>
+        <>
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -62,7 +62,7 @@ const PostTitle = (props) => {
               <ErrorMsg key={index} msg={error.msg} />
             ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

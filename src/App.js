@@ -8,10 +8,10 @@ import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { login, updatePost, updateBlock } from "./backend/backend";
+import { login, updatePost, updateBlock, getPost } from "./backend/backend";
 
 function App() {
-  const URL = "http://localhost:5000/posts/63dbaf9412e514c68d95c4ba";
+  const ID = "63dbaf9412e514c68d95c4ba";
 
   const [post, setPost] = useState({
     title: "...Loading",
@@ -31,16 +31,17 @@ function App() {
   });
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(URL, { mode: "cors" });
-      const json = await response.json();
-      setPost(json.post);
-    }
-    fetchData();
+    getPost(ID).then((response) => {
+      setPost(response.post);
+    });
     //get loginState from localStorage
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
     if (initialLoginState) setLoginState(initialLoginState);
   }, []);
+
+  useEffect(() => {
+    console.log(postErrors);
+  }, [postErrors]);
 
   async function onSubmit(loginForm) {
     const { username, password } = loginForm;
@@ -85,9 +86,7 @@ function App() {
     setPost(newPost);
     try {
       const response = await updatePost(newPost, loginState.token);
-      if (!response.success) {
-        setPostErrors(response.errors);
-      }
+      setPostErrors(response.errors);
     } catch (error) {
       setPostErrors([error]);
     }
@@ -118,6 +117,7 @@ function App() {
                 post={post}
                 submit={submitTitle}
                 submitBlock={submitBlock}
+                errors={postErrors}
               />
             }
           />

@@ -42,3 +42,14 @@ export async function updateBlock(block, token) {
   const json = await response.json();
   return json;
 }
+
+export async function getPost(ID) {
+  const response = await fetch(`http://localhost:5000/posts/${ID}`, {
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  return json;
+}

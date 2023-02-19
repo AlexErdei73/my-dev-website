@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import EditBlock from "./EditBlock";
@@ -6,11 +6,16 @@ import "./Block.css";
 
 const Block = (props) => {
   const { block, edit, submit } = props;
-  const { type, language, text, links } = block;
+  const { type, language, text, links, errors } = block;
 
   const [editing, setEditing] = useState(false);
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   let jsx;
+  const showEditing = editing || (errors && errors.length !== 0);
   switch (type) {
     case "paragraph":
       function addLinks(text, links) {
@@ -59,13 +64,13 @@ const Block = (props) => {
   }
   return (
     <div className="block">
-      {!editing && jsx}
-      {edit && !editing && (
+      {!showEditing && jsx}
+      {edit && !showEditing && (
         <button type="button" onClick={() => setEditing(true)}>
           Edit
         </button>
       )}
-      {editing && (
+      {showEditing && (
         <EditBlock
           block={block}
           submit={(block) => {

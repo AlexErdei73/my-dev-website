@@ -96,12 +96,13 @@ function App() {
     const newPost = JSON.parse(JSON.stringify(post));
     const index = newPost.content.findIndex((bl) => bl._id === block._id);
     newPost.content[index] = { ...block };
-    setPost(newPost);
     try {
       const response = await updateBlock(block, loginState.token);
-      console.log(response);
+      newPost.content[index].errors = response.errors;
     } catch (error) {
-      console.error(error);
+      newPost.content[index].errors = [{ msg: error.message }];
+    } finally {
+      setPost(newPost);
     }
   }
 

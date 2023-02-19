@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import ErrorMsg from "./ErrorMsg";
 import "./EditBlock.css";
 
 const EditBlock = (props) => {
   const { block, submit, cancel } = props;
+  const { errors } = block;
 
   const [newBlock, setNewBlock] = useState(block);
 
@@ -78,8 +80,8 @@ const EditBlock = (props) => {
             value={newBlock.text}
             onChange={handleChange}
             id="text"
-            required="true"
-            classname="edit-block__input"
+            required={true}
+            className="edit-block__input"
           />
         )}
         {block.type !== "subtitle" && (
@@ -127,6 +129,12 @@ const EditBlock = (props) => {
         >
           Cancel
         </button>
+      </div>
+      <div className="errors-container">
+        {errors &&
+          errors.map((error, index) => (
+            <ErrorMsg key={index} msg={error.msg} />
+          ))}
       </div>
     </form>
   );

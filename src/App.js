@@ -117,8 +117,10 @@ function App() {
               <Post
                 post={post}
                 submit={submitTitle}
-                submitBlock={submitBlock}
+                updateBlock={submitBlock}
                 errors={postErrors}
+                setPost={setPost}
+                token={loginState.token}
               />
             }
           />

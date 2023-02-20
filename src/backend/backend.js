@@ -53,3 +53,20 @@ export async function getPost(ID) {
   const json = await response.json();
   return json;
 }
+
+export async function createBlock(block, token) {
+  const response = await fetch(
+    `http://localhost:5000/posts/${block.post}/blocks`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(block),
+    }
+  );
+  const json = await response.json();
+  return json;
+}

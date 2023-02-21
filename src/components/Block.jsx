@@ -5,7 +5,7 @@ import EditBlock from "./EditBlock";
 import "./Block.css";
 
 const Block = (props) => {
-  const { block, edit, submit } = props;
+  const { block, edit, submit, remove } = props;
   const { type, language, text, links, errors } = block;
 
   const [editing, setEditing] = useState(false);
@@ -66,9 +66,14 @@ const Block = (props) => {
     <div className="block">
       {!showEditing && jsx}
       {edit && !showEditing && (
-        <button type="button" onClick={() => setEditing(true)}>
-          Edit
-        </button>
+        <div>
+          <button type="button" onClick={() => setEditing(true)}>
+            Edit
+          </button>
+          <button type="button" onClick={() => remove(block)}>
+            Delete
+          </button>
+        </div>
       )}
       {showEditing && (
         <EditBlock

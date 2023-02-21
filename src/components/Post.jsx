@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Block from "./Block";
 import PostTitle from "./PostTitle";
-import { createBlock } from "../backend/backend";
+import { createBlock, deleteBlock } from "../backend/backend";
 import "./Post.css";
 
 const Post = (props) => {
@@ -9,7 +9,7 @@ const Post = (props) => {
   const { _id, title, author, content, comments } = post;
 
   const NEW_EMPTY_BLOCK = {
-    text: "",
+    text: "New Block",
     type: "paragraph",
     links: [],
     language: " ",
@@ -39,11 +39,38 @@ const Post = (props) => {
     }
   }
 
+  async function remove(block) {
+    const newBlock = JSON.parse(JSON.stringify(block));
+    newBlock.post = _id;
+    const newPost = JSON.parse(JSON.stringify(post));
+    const index = newPost.content.findIndex(
+      (block) => block._id === newBlock._id
+    );
+    try {
+      const response = await deleteBlock(newBlock, token);
+      if (response.success) newPost.content.splice(index, 1);
+      else newBlock.errors = response.errors;
+    } catch (error) {
+      console.error(error);
+      newBlock.errors = [{ msg: error.message }];
+    } finally {
+      if (newBlock.errors && newBlock.errors.length !== 0)
+        newPost.content[index] = newBlock;
+      setPost(newPost);
+    }
+  }
+
   return (
     <article className="post">
       <PostTitle title={title} edit={true} submit={submit} errors={errors} />
       {content.map((block) => (
-        <Block key={block._id} block={block} edit={true} submit={updateBlock} />
+        <Block
+          key={block._id}
+          block={block}
+          edit={true}
+          submit={updateBlock}
+          remove={remove}
+        />
       ))}
       <Block key="new-block" block={newBlock} edit={true} submit={saveBlock} />
     </article>

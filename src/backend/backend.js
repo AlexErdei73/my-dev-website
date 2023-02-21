@@ -1,3 +1,11 @@
+async function getJSON(response) {
+  let json;
+  if (response.status === 401) {
+    json = { success: false, errors: [{ msg: response.statusText }] };
+  } else json = await response.json();
+  return json;
+}
+
 export async function login(username, password) {
   const response = await fetch("http://localhost:5000/users/login", {
     method: "POST",
@@ -22,8 +30,7 @@ export async function updatePost(post, token) {
     },
     body: JSON.stringify(post),
   });
-  const json = await response.json();
-  return json;
+  return await getJSON(response);
 }
 
 export async function updateBlock(block, token) {
@@ -39,8 +46,7 @@ export async function updateBlock(block, token) {
       body: JSON.stringify(block),
     }
   );
-  const json = await response.json();
-  return json;
+  return await getJSON(response);
 }
 
 export async function getPost(ID) {
@@ -67,6 +73,20 @@ export async function createBlock(block, token) {
       body: JSON.stringify(block),
     }
   );
-  const json = await response.json();
-  return json;
+  return await getJSON(response);
+}
+
+export async function deleteBlock(block, token) {
+  const response = await fetch(
+    `http://localhost:5000/posts/${block.post}/blocks/${block._id}`,
+    {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }
+  );
+  return await getJSON(response);
 }

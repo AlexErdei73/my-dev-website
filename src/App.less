@@ -6,7 +6,7 @@
 @button-padding-md-x: 20px;
 @navigation-width: 250px;
 @navigation-height: 5rem;
-@post-width: 600px;
+@post-width: 700px;
 @radius: 5px;
 @gap: 10px;
 
@@ -29,6 +29,11 @@
 
 .button-hover {
   background-color: @primary-color-hover;
+}
+
+.button-sm(@width: fit-content) {
+  .button(@width);
+  padding: @button-padding-sm-y @button-padding-sm-x;
 }
 
 .input {

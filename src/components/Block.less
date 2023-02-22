@@ -1,5 +1,8 @@
 @import "../App.less";
 
+@btn-width: 63px;
+@code-block-max-width: 550px;
+
 .block {
   max-width: @post-width;
   margin: @gap 0 0;
@@ -10,15 +13,37 @@
   p,
   h2 {
     margin: 0;
+    flex-shrink: 1;
   }
-  button {
-    .button();
+  &__button {
+    .button-sm(@btn-width);
   }
-  button:hover {
+  &__button:hover {
     .button-hover();
+  }
+  &__edit-btns {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    flex-grow: 1;
+    gap: @gap;
+  }
+  &__button--delete {
+    .button-sm();
+    background-color: pink;
+    color: darkred;
+    border: 1px solid darkred;
+  }
+  &__button--delete:hover {
+    color: red;
+    border-color: red;
   }
   &__code {
     width: 100%;
+    max-width: @code-block-max-width;
+    flex-shrink: 1;
+    flex-grow: 1;
     pre {
       margin: 0 !important;
     }

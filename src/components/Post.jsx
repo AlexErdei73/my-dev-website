@@ -22,13 +22,13 @@ const Post = (props) => {
   async function saveBlock(block) {
     const newBlock = JSON.parse(JSON.stringify(block));
     newBlock.post = _id;
+    const newPost = JSON.parse(JSON.stringify(post));
     try {
       const response = await createBlock(newBlock, token);
       if (response.success) {
-        const newPost = JSON.parse(JSON.stringify(post));
         newPost.content.push(response.block);
-        setPost(newPost);
         setNewBlock(NEW_EMPTY_BLOCK);
+        newBlock.errors = [];
       } else {
         newBlock.errors = response.errors;
       }
@@ -36,6 +36,7 @@ const Post = (props) => {
       newBlock.errors = [{ msg: error.message }];
     } finally {
       if (newBlock.errors.length !== 0) setNewBlock(newBlock);
+      setPost(newPost);
     }
   }
 
@@ -51,7 +52,6 @@ const Post = (props) => {
       if (response.success) newPost.content.splice(index, 1);
       else newBlock.errors = response.errors;
     } catch (error) {
-      console.error(error);
       newBlock.errors = [{ msg: error.message }];
     } finally {
       if (newBlock.errors && newBlock.errors.length !== 0)

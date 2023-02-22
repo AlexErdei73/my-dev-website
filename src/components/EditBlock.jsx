@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ErrorMsg from "./ErrorMsg";
 import "./EditBlock.css";
 
@@ -7,6 +7,10 @@ const EditBlock = (props) => {
   const { errors } = block;
 
   const [newBlock, setNewBlock] = useState(block);
+
+  useEffect(() => {
+    setNewBlock(block);
+  }, [block]);
 
   function numberOfLines(text) {
     return text.split("\n").length;

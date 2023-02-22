@@ -10,10 +10,6 @@ const Block = (props) => {
 
   const [editing, setEditing] = useState(false);
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   let jsx;
   const showEditing = editing || (errors && errors.length !== 0);
   switch (type) {
@@ -66,13 +62,23 @@ const Block = (props) => {
     <div className="block">
       {!showEditing && jsx}
       {edit && !showEditing && (
-        <div>
-          <button type="button" onClick={() => setEditing(true)}>
+        <div className="block__edit-btns">
+          <button
+            type="button"
+            className="block__button"
+            onClick={() => setEditing(true)}
+          >
             Edit
           </button>
-          <button type="button" onClick={() => remove(block)}>
-            Delete
-          </button>
+          {block._id && (
+            <button
+              type="button"
+              className="block__button--delete"
+              onClick={() => remove(block)}
+            >
+              Delete
+            </button>
+          )}
         </div>
       )}
       {showEditing && (

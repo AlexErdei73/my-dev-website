@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 const AppMenu = () => {
+  const LOGO = "ALEX'S DEV";
+
   return (
     <nav className="nav">
       <ul>
         <li className="nav__logo">
-          <Link to="/">LOGO</Link>
+          <Link to="/">{LOGO}</Link>
         </li>
         <li className="nav__item">
           <Link to="/about">About</Link>

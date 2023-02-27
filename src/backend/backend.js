@@ -90,3 +90,14 @@ export async function deleteBlock(block, token) {
   );
   return await getJSON(response);
 }
+
+export async function getPosts() {
+  const response = await fetch("http://localhost:5000/posts", {
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  return json;
+}

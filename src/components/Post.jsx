@@ -5,7 +5,7 @@ import { createBlock, deleteBlock } from "../backend/backend";
 import "./Post.css";
 
 const Post = (props) => {
-  const { post, submit, updateBlock, errors, setPost, token } = props;
+  const { post, submit, updateBlock, errors, setPost, token, edit } = props;
   const { _id, title, author, content, comments } = post;
 
   const NEW_EMPTY_BLOCK = {
@@ -62,17 +62,17 @@ const Post = (props) => {
 
   return (
     <article className="post">
-      <PostTitle title={title} edit={true} submit={submit} errors={errors} />
+      <PostTitle title={title} edit={edit} submit={submit} errors={errors} />
       {content.map((block) => (
         <Block
           key={block._id}
           block={block}
-          edit={true}
+          edit={edit}
           submit={updateBlock}
           remove={remove}
         />
       ))}
-      <Block key="new-block" block={newBlock} edit={true} submit={saveBlock} />
+      <Block key="new-block" block={newBlock} edit={edit} submit={saveBlock} />
     </article>
   );
 };

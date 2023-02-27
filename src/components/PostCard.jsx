@@ -2,7 +2,7 @@ import React from "react";
 import "./PostCard.css";
 
 const PostCard = (props) => {
-  const { post } = props;
+  const { post, onClick } = props;
 
   const { title, author, createdAt, updatedAt } = post;
 
@@ -13,7 +13,9 @@ const PostCard = (props) => {
         <div className="post-card__title">
           <h2 className="post-card__title">{title}</h2>
         </div>
-        <button className="post-card__button">View</button>
+        <button className="post-card__button" onClick={() => onClick(post)}>
+          View
+        </button>
       </div>
       <div className="post-card__footer">
         <div>Created:{createdAt && createdAt.slice(0, 10)}</div>

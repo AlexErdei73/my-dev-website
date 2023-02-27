@@ -3,12 +3,12 @@ import "./Posts.css";
 import PostsView from "./PostsView";
 
 const Posts = (props) => {
-  const { posts } = props;
+  const { posts, setIndex } = props;
 
   return (
     <div className="posts">
       <h1 className="posts__title">Posts</h1>
-      <PostsView posts={posts} />
+      <PostsView posts={posts} setIndex={setIndex} />
     </div>
   );
 };

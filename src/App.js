@@ -19,6 +19,8 @@ import {
 function App() {
   const ID = "63dbaf9412e514c68d95c4ba";
 
+  const [index, setIndex] = useState(0);
+
   const [posts, setPosts] = useState([
     {
       title: "...Loading",
@@ -49,10 +51,6 @@ function App() {
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
     if (initialLoginState) setLoginState(initialLoginState);
   }, []);
-
-  useEffect(() => {
-    console.log(postErrors);
-  }, [postErrors]);
 
   async function onSubmit(loginForm) {
     const { username, password } = loginForm;
@@ -93,9 +91,9 @@ function App() {
 
   async function submitTitle(title) {
     const newPosts = [...posts];
-    const newPost = { ...newPosts[0] };
+    const newPost = { ...newPosts[index] };
     newPost.title = title;
-    newPosts[0] = newPost;
+    newPosts[index] = newPost;
     setPosts(newPosts);
     try {
       const response = await updatePost(newPost, loginState.token);
@@ -106,17 +104,17 @@ function App() {
   }
 
   async function submitBlock(block) {
-    const newPost = JSON.parse(JSON.stringify(posts[0]));
-    const index = newPost.content.findIndex((bl) => bl._id === block._id);
-    newPost.content[index] = { ...block };
+    const newPost = JSON.parse(JSON.stringify(posts[index]));
+    const blockIndex = newPost.content.findIndex((bl) => bl._id === block._id);
+    newPost.content[blockIndex] = { ...block };
     try {
       const response = await updateBlock(block, loginState.token);
-      newPost.content[index].errors = response.errors;
+      newPost.content[blockIndex].errors = response.errors;
     } catch (error) {
-      newPost.content[index].errors = [{ msg: error.message }];
+      newPost.content[blockIndex].errors = [{ msg: error.message }];
     } finally {
       const newPosts = [...posts];
-      newPosts[0] = newPost;
+      newPosts[index] = newPost;
       setPosts(newPosts);
     }
   }
@@ -130,17 +128,24 @@ function App() {
             path="/"
             element={
               <Post
-                post={posts[0]}
+                post={posts[index]}
                 submit={submitTitle}
                 updateBlock={submitBlock}
                 errors={postErrors}
-                setPost={(newPost) => setPosts({ ...posts, [0]: newPost })}
+                setPost={(newPost) => setPosts({ ...posts, [index]: newPost })}
                 token={loginState.token}
+                edit={
+                  loginState.success &&
+                  loginState.user.username === posts[0].author.username
+                }
               />
             }
           />
           <Route path="/about" element={<About />} />
-          <Route path="/posts" element={<Posts posts={posts} />} />
+          <Route
+            path="/posts"
+            element={<Posts posts={posts} setIndex={setIndex} />}
+          />
           <Route
             path="/login"
             element={

@@ -15,7 +15,6 @@ const Login = (props) => {
 
   let jsx;
   if (loginState.success) {
-    console.log("username: ", user.username);
     jsx = (
       <div className="logout">
         <h1 className="logout__title">Welcome {user.username}!</h1>

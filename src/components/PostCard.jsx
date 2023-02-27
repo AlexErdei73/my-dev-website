@@ -10,7 +10,9 @@ const PostCard = (props) => {
     <div className="post-card">
       <div className="post-card__header">By {author.username}</div>
       <div className="post-card__body">
-        <h1 className="post-card__title">{title}</h1>
+        <div className="post-card__title">
+          <h2 className="post-card__title">{title}</h2>
+        </div>
         <button className="post-card__button">View</button>
       </div>
       <div className="post-card__footer">

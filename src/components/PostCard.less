@@ -2,14 +2,21 @@
 
 @card-width: 350px;
 @card-height: 200px;
+@max-title-height: 75px;
 @card-background-color: lightgray;
 
-.post-card-edge(@border-radius-top:0, @border-radius-bottom:0) {
-  background-color: @primary-color;
+.post-card-edge(@border-radius-top:0, @border-radius-bottom:0, @color: @primary-color) {
+  background-color: @color;
   color: whitesmoke;
   border-radius: @border-radius-top @border-radius-top @border-radius-bottom
     @border-radius-bottom;
   padding: @radius;
+}
+
+.flex-column() {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .post-card {
@@ -17,22 +24,28 @@
   height: @card-height;
   background-color: @card-background-color;
   border-radius: @gap;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  .flex-column();
   &__header {
     .post-card-edge(@gap, 0);
   }
   &__body {
     padding: @radius;
-    h1 {
-      margin: 0;
+    flex-grow: 1;
+    .flex-column();
+  }
+  &__title {
+    display: flex;
+    flex-grow: 1;
+    max-height: @max-title-height;
+    overflow: auto;
+    h2 {
+      margin: auto;
     }
   }
   &__footer {
-    display: flex;
-    justify-content: space-between;
-    .post-card-edge(0, @gap);
+    .flex-column();
+    flex-direction: row;
+    .post-card-edge(0, @gap, rgb(107, 107, 107));
   }
   &__button {
     .button();

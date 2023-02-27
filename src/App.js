@@ -8,15 +8,23 @@ import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { login, updatePost, updateBlock, getPost } from "./backend/backend";
+import {
+  login,
+  updatePost,
+  updateBlock,
+  getPost,
+  getPosts,
+} from "./backend/backend";
 
 function App() {
   const ID = "63dbaf9412e514c68d95c4ba";
 
-  const [post, setPost] = useState({
-    title: "...Loading",
-    content: [],
-  });
+  const [posts, setPosts] = useState([
+    {
+      title: "...Loading",
+      content: [],
+    },
+  ]);
 
   const [postErrors, setPostErrors] = useState([]);
 
@@ -31,8 +39,8 @@ function App() {
   });
 
   useEffect(() => {
-    getPost(ID).then((response) => {
-      setPost(response.post);
+    getPosts().then((response) => {
+      setPosts(response.posts);
     });
     //get loginState from localStorage
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
@@ -81,9 +89,11 @@ function App() {
   }
 
   async function submitTitle(title) {
-    const newPost = { ...post };
+    const newPosts = [...posts];
+    const newPost = { ...newPosts[0] };
     newPost.title = title;
-    setPost(newPost);
+    newPosts[0] = newPost;
+    setPosts(newPosts);
     try {
       const response = await updatePost(newPost, loginState.token);
       setPostErrors(response.errors);
@@ -93,7 +103,7 @@ function App() {
   }
 
   async function submitBlock(block) {
-    const newPost = JSON.parse(JSON.stringify(post));
+    const newPost = JSON.parse(JSON.stringify(posts[0]));
     const index = newPost.content.findIndex((bl) => bl._id === block._id);
     newPost.content[index] = { ...block };
     try {
@@ -102,7 +112,9 @@ function App() {
     } catch (error) {
       newPost.content[index].errors = [{ msg: error.message }];
     } finally {
-      setPost(newPost);
+      const newPosts = [...posts];
+      newPosts[0] = newPost;
+      setPosts(newPosts);
     }
   }
 
@@ -115,17 +127,17 @@ function App() {
             path="/"
             element={
               <Post
-                post={post}
+                post={posts[0]}
                 submit={submitTitle}
                 updateBlock={submitBlock}
                 errors={postErrors}
-                setPost={setPost}
+                setPost={(newPost) => setPosts({ ...posts, [0]: newPost })}
                 token={loginState.token}
               />
             }
           />
           <Route path="/about" element={<About />} />
-          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts" element={<Posts posts={posts} />} />
           <Route
             path="/login"
             element={

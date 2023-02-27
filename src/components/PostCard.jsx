@@ -7,7 +7,7 @@ const PostCard = (props) => {
 
   return (
     <div className="post-card">
-      <div className="post-card__header">By {author.name}</div>
+      <div className="post-card__header">By </div>
       <div className="post-card__body">
         <h1 className="post-card__title">{title}</h1>
       </div>

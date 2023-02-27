@@ -136,14 +136,25 @@ function App() {
                 errors={postErrors}
                 setPost={(newPost) => setPosts({ ...posts, [index]: newPost })}
                 token={loginState.token}
-                edit={edit}
+                edit={
+                  edit &&
+                  loginState.user.username === posts[index].author.username
+                }
               />
             }
           />
           <Route path="/about" element={<About />} />
           <Route
             path="/"
-            element={<Posts posts={posts} setIndex={setIndex} />}
+            element={
+              <Posts
+                posts={posts}
+                setIndex={(ind) => {
+                  setIndex(ind);
+                  setEdit(false);
+                }}
+              />
+            }
           />
           <Route
             path="/login"
@@ -153,6 +164,9 @@ function App() {
                 loginState={loginState}
                 setLoginState={setLoginState}
                 logout={logout}
+                posts={posts}
+                setPostIndex={setIndex}
+                setEdit={setEdit}
               />
             }
           />

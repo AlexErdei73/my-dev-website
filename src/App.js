@@ -17,9 +17,11 @@ import {
 } from "./backend/backend";
 
 function App() {
-  const ID = "63dbaf9412e514c68d95c4ba";
+  //const ID = "63dbaf9412e514c68d95c4ba";
 
   const [index, setIndex] = useState(0);
+
+  const [edit, setEdit] = useState(false);
 
   const [posts, setPosts] = useState([
     {
@@ -125,7 +127,7 @@ function App() {
         <AppMenu />
         <Routes>
           <Route
-            path="/"
+            path="/post"
             element={
               <Post
                 post={posts[index]}
@@ -134,16 +136,13 @@ function App() {
                 errors={postErrors}
                 setPost={(newPost) => setPosts({ ...posts, [index]: newPost })}
                 token={loginState.token}
-                edit={
-                  loginState.success &&
-                  loginState.user.username === posts[0].author.username
-                }
+                edit={edit}
               />
             }
           />
           <Route path="/about" element={<About />} />
           <Route
-            path="/posts"
+            path="/"
             element={<Posts posts={posts} setIndex={setIndex} />}
           />
           <Route

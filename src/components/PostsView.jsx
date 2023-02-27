@@ -17,7 +17,7 @@ const PostsView = (props) => {
   useEffect(() => {
     if (postIndex === -1) return;
     setIndex(postIndex);
-    navigate("/");
+    navigate("/post");
   }, [postIndex]);
 
   return (

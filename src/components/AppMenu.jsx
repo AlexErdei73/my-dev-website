@@ -18,7 +18,7 @@ const AppMenu = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="nav__item">
-          <Link to="/posts">Posts</Link>
+          <Link to="/post">Post</Link>
         </li>
         <li className="nav__item">
           <Link to="/login">Login</Link>

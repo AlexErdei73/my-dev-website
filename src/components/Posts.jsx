@@ -7,7 +7,7 @@ const Posts = (props) => {
 
   return (
     <div className="posts">
-      <h1 className="posts__title">Posts</h1>;
+      <h1 className="posts__title">Posts</h1>
       <PostsView posts={posts} />
     </div>
   );

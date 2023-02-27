@@ -22,6 +22,9 @@ function App() {
   const [posts, setPosts] = useState([
     {
       title: "...Loading",
+      author: {
+        username: "...Loading",
+      },
       content: [],
     },
   ]);

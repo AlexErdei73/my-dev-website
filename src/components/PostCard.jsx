@@ -1,4 +1,5 @@
 import React from "react";
+import "./PostCard.css";
 
 const PostCard = (props) => {
   const { post } = props;
@@ -7,13 +8,14 @@ const PostCard = (props) => {
 
   return (
     <div className="post-card">
-      <div className="post-card__header">By </div>
+      <div className="post-card__header">By {author.username}</div>
       <div className="post-card__body">
         <h1 className="post-card__title">{title}</h1>
+        <button className="post-card__button">View</button>
       </div>
       <div className="post-card__footer">
-        <div>Created At:{createdAt}</div>
-        <div>Updated At:{updatedAt}</div>
+        <div>Created:{createdAt && createdAt.slice(0, 10)}</div>
+        <div>Updated:{updatedAt && updatedAt.slice(0, 10)}</div>
       </div>
     </div>
   );

@@ -1,0 +1,51 @@
+@import "../App.less";
+
+@card-width: 350px;
+@card-height: 200px;
+@card-background-color: lightgray;
+
+.post-card-edge(@border-radius-top:0, @border-radius-bottom:0) {
+  background-color: @primary-color;
+  color: whitesmoke;
+  border-radius: @border-radius-top @border-radius-top @border-radius-bottom
+    @border-radius-bottom;
+  padding: @radius;
+}
+
+.post-card {
+  width: @card-width;
+  height: @card-height;
+  background-color: @card-background-color;
+  border-radius: @gap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__header {
+    .post-card-edge(@gap, 0);
+  }
+  &__body {
+    padding: @radius;
+    h1 {
+      margin: 0;
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    .post-card-edge(0, @gap);
+  }
+  &__button {
+    .button();
+    display: block;
+    margin: @gap auto;
+  }
+  &__button:hover {
+    .button-hover();
+  }
+}
+
+.post-card:hover {
+  .post-card__header {
+    background-color: @primary-color-hover;
+  }
+}

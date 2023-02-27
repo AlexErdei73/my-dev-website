@@ -1,5 +1,6 @@
 import React from "react";
 import PostCard from "./PostCard";
+import "./PostsView.css";
 
 const PostsView = (props) => {
   const { posts } = props;

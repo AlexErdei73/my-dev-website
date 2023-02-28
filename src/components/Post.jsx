@@ -72,7 +72,14 @@ const Post = (props) => {
           remove={remove}
         />
       ))}
-      <Block key="new-block" block={newBlock} edit={edit} submit={saveBlock} />
+      {edit && (
+        <Block
+          key="new-block"
+          block={newBlock}
+          edit={edit}
+          submit={saveBlock}
+        />
+      )}
     </article>
   );
 };

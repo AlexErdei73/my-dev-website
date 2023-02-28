@@ -3,17 +3,26 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Post from "./components/Post";
 import AppMenu from "./components/AppMenu";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  redirect,
+} from "react-router-dom";
 import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import NewPost from "./components/NewPost";
-import { login, updatePost, updateBlock, getPosts } from "./backend/backend";
+import {
+  login,
+  updatePost,
+  updateBlock,
+  getPosts,
+  postPosts,
+} from "./backend/backend";
 
 function App() {
-  //const ID = "63dbaf9412e514c68d95c4ba";
-
   const [index, setIndex] = useState(0);
 
   const [edit, setEdit] = useState(false);
@@ -40,6 +49,17 @@ function App() {
     msg: "",
   });
 
+  const EMPTY_RESPONSE = {
+    success: false,
+    post: {
+      author: "",
+      title: "",
+    },
+    errors: [],
+  };
+
+  const [createPostResponse, setCreatePostResponse] = useState(EMPTY_RESPONSE);
+
   useEffect(() => {
     getPosts().then((response) => {
       setPosts(response.posts);
@@ -49,6 +69,17 @@ function App() {
     if (initialLoginState) setLoginState(initialLoginState);
   }, []);
 
+  useEffect(() => {
+    const { success, post, errors } = createPostResponse;
+    if (post.author === "" && post.title === "" && errors.length === 0) return;
+    if (success) {
+      const newPosts = JSON.parse(JSON.stringify(posts));
+      post.author = { ...loginState.user };
+      newPosts.push(post);
+      setPosts(newPosts);
+    }
+  }, [createPostResponse]);
+
   async function onSubmit(loginForm) {
     const { username, password } = loginForm;
     try {
@@ -57,6 +88,7 @@ function App() {
       newLoginState.success = response.success;
       newLoginState.msg = response.msg;
       newLoginState.token = response.token;
+      newLoginState.user._id = response.user._id;
       if (response.success) {
         //user logged in successfully
         newLoginState.user.password = ""; //Do not store password as it is sensitive information!!!
@@ -76,6 +108,7 @@ function App() {
     const newLoginState = {
       success: false,
       user: {
+        _id: "",
         username: "",
         password: "",
       },
@@ -114,6 +147,24 @@ function App() {
       newPosts[index] = newPost;
       setPosts(newPosts);
     }
+  }
+
+  async function createPost(post) {
+    post.author = loginState.user._id;
+    try {
+      const response = await postPosts(post, loginState.token);
+      setCreatePostResponse(response);
+    } catch (error) {
+      setCreatePostResponse({
+        success: false,
+        post,
+        errors: [{ msg: error.message }],
+      });
+    }
+  }
+
+  function deleteResponse() {
+    setCreatePostResponse(EMPTY_RESPONSE);
   }
 
   return (
@@ -166,7 +217,16 @@ function App() {
             }
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/new-post" element={<NewPost />} />
+          <Route
+            path="/new-post"
+            element={
+              <NewPost
+                submit={createPost}
+                response={createPostResponse}
+                deleteResponse={deleteResponse}
+              />
+            }
+          />
         </Routes>
       </Router>
     </div>

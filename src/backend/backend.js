@@ -101,3 +101,16 @@ export async function getPosts() {
   const json = await response.json();
   return json;
 }
+
+export async function postPosts(post, token) {
+  const response = await fetch("http://localhost:5000/posts", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(post),
+  });
+  return await getJSON(response);
+}

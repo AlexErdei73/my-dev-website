@@ -56,12 +56,12 @@ const PostTitle = (props) => {
                 Cancel
               </button>
             )}
+            <div className="post-title__errors">
+              {errors.map((error, index) => (
+                <ErrorMsg key={index} msg={error.msg} />
+              ))}
+            </div>
           </form>
-          <div className="post-title__errors">
-            {errors.map((error, index) => (
-              <ErrorMsg key={index} msg={error.msg} />
-            ))}
-          </div>
         </>
       )}
     </div>

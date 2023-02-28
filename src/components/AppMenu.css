@@ -80,7 +80,8 @@
   .signup,
   .login,
   .logout,
-  .posts {
+  .posts,
+  .new-post {
     margin: 5rem 0 !important;
   }
 }
@@ -119,7 +120,8 @@
   .signup,
   .login,
   .logout,
-  .posts {
+  .posts,
+  .new-post {
     margin: 5rem 0 !important;
   }
 }

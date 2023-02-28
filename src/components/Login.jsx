@@ -22,11 +22,12 @@ const Login = (props) => {
 
   useEffect(() => {
     if (!loginState.success) return;
+    console.log(posts);
     const newUserPosts = posts.filter(
       (post) => post.author.username === loginState.user.username
     );
     setUserPosts(newUserPosts);
-  }, [loginState]);
+  }, [loginState, posts]);
 
   function handleChange(event) {
     const name = event.target.id;

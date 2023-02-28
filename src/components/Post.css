@@ -14,9 +14,10 @@
   outline: none;
 }
 .post {
+  overflow-x: hidden;
   margin-left: 250px;
-  padding: 10px;
   min-height: 100vh;
+  padding: 10px;
   max-width: 700px;
 }
 /*# sourceMappingURL=Post.css.map */

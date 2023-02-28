@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ErrorMsg from "./ErrorMsg";
 import PostsView from "./PostsView";
+import { Link } from "react-router-dom";
 import "./Login.css";
 
 const Login = (props) => {
@@ -49,6 +50,11 @@ const Login = (props) => {
             setEdit(true);
           }}
         />
+
+        <Link to="/new-post" className="logout__button--link">
+          New Post
+        </Link>
+
         <p>You are currently logged in.</p>
         <button type="button" onClick={logout} className="logout__button">
           Logout

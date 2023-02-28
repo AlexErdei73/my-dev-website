@@ -8,13 +8,8 @@ import About from "./components/About";
 import Posts from "./components/Posts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import {
-  login,
-  updatePost,
-  updateBlock,
-  getPost,
-  getPosts,
-} from "./backend/backend";
+import NewPost from "./components/NewPost";
+import { login, updatePost, updateBlock, getPosts } from "./backend/backend";
 
 function App() {
   //const ID = "63dbaf9412e514c68d95c4ba";
@@ -171,6 +166,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/new-post" element={<NewPost />} />
         </Routes>
       </Router>
     </div>

@@ -10,6 +10,9 @@
 @radius: 5px;
 @gap: 10px;
 
+@form-width: 400px;
+@input-width: @form-width - 50px;
+
 .App {
   background: whitesmoke;
   color: black;
@@ -18,6 +21,56 @@
 }
 
 // General styles
+.app-margin() {
+  overflow-x: hidden;
+  margin-left: @navigation-width;
+  min-height: 100vh;
+  padding: @gap;
+}
+
+.flex-col(@flex-gap: 0) {
+  display: flex;
+  flex-direction: column;
+  gap: @flex-gap;
+}
+
+.flex-row(@flex-gap: 0) {
+  display: flex;
+  flex-direction: row;
+  gap: @flex-gap;
+}
+
+.title() {
+  &__title {
+    margin-top: 0;
+  }
+}
+
+.input-form(@width: @form-width) {
+  width: @width;
+  input {
+    .input();
+    width: @input-width;
+    margin: 0 auto @gap;
+  }
+  input:focus {
+    box-shadow: 0 0 5px 2px @primary-color-hover;
+  }
+  button {
+    .button();
+  }
+  button:hover {
+    .button-hover();
+  }
+}
+
+.form() {
+  .app-margin();
+  .flex-col();
+  .title();
+  .input-form();
+}
+
 .button(@width: fit-content) {
   border: none;
   background-color: @primary-color;

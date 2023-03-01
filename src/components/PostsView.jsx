@@ -4,7 +4,7 @@ import "./PostsView.css";
 import { useNavigate } from "react-router-dom";
 
 const PostsView = (props) => {
-  const { posts, setIndex } = props;
+  const { posts, setIndex, edit } = props;
   const navigate = useNavigate();
 
   const [postIndex, setPostIndex] = useState(-1);
@@ -23,7 +23,7 @@ const PostsView = (props) => {
   return (
     <div className="posts-view">
       {posts.map((post) => (
-        <PostCard key={post._id} post={post} onClick={handleView} />
+        <PostCard key={post._id} post={post} onClick={handleView} edit={edit} />
       ))}
     </div>
   );

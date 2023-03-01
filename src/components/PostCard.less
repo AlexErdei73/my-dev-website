@@ -27,6 +27,8 @@
   .flex-column();
   &__header {
     .post-card-edge(@gap, 0);
+    .flex-row();
+    justify-content: space-between;
   }
   &__body {
     padding: @radius;
@@ -54,6 +56,18 @@
   }
   &__button:hover {
     .button-hover();
+  }
+  &__button--delete {
+    .button-delete() !important;
+    border-radius: 50% !important;
+  }
+  &__button--delete:hover {
+    .button-delete-hover() !important;
+  }
+  &__header-text {
+    height: 100%;
+    .flex-column();
+    justify-content: center;
   }
 }
 

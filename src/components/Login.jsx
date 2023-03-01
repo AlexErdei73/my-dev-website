@@ -22,7 +22,6 @@ const Login = (props) => {
 
   useEffect(() => {
     if (!loginState.success) return;
-    console.log(posts);
     const newUserPosts = posts.filter(
       (post) => post.author.username === loginState.user.username
     );
@@ -50,6 +49,7 @@ const Login = (props) => {
             setPostIndex(postIndex);
             setEdit(true);
           }}
+          edit={true}
         />
 
         <Link to="/new-post" className="logout__button--link">

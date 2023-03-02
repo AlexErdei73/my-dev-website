@@ -1,0 +1,38 @@
+@import "../App.less";
+
+@max-title-height: 75px;
+@btn-width: 75px;
+
+.post-card {
+  &__body {
+    padding: @radius;
+    flex-grow: 1;
+    .flex-col();
+  }
+  &__title {
+    display: flex;
+    flex-grow: 1;
+    max-height: @max-title-height;
+    overflow: auto;
+    h2 {
+      margin: auto;
+    }
+  }
+  &__button {
+    .button-sm(@btn-width) !important;
+  }
+  &__button:hover {
+    .button-hover() !important;
+  }
+  &__button--delete-lg {
+    .button-delete(@btn-width) !important;
+  }
+  &__button--delete-lg:hover {
+    .button-delete-hover() !important;
+  }
+  &__button-container {
+    .flex-row();
+    justify-content: space-around;
+    align-items: center;
+  }
+}

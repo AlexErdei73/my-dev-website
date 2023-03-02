@@ -1,0 +1,48 @@
+@import "../App.less";
+
+@card-width: 350px;
+@card-height: 200px;
+@card-background-color: lightgray;
+
+.card-edge(@border-radius-top:0, @border-radius-bottom:0, @color: @primary-color) {
+  background-color: @color;
+  color: whitesmoke;
+  border-radius: @border-radius-top @border-radius-top @border-radius-bottom
+    @border-radius-bottom;
+  padding: @radius;
+}
+
+.flex-column() {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card {
+  width: @card-width;
+  height: @card-height;
+  background-color: @card-background-color;
+  border-radius: @gap;
+  .flex-column();
+  &__header {
+    .card-edge(@gap, 0);
+    .flex-row();
+    justify-content: space-between;
+  }
+  &__footer {
+    .flex-column();
+    flex-direction: row;
+    .card-edge(0, @gap, rgb(107, 107, 107));
+  }
+  &__header-text {
+    height: 100%;
+    .flex-column();
+    justify-content: center;
+  }
+}
+
+.card:hover {
+  .card__header {
+    background-color: @primary-color-hover;
+  }
+}

@@ -7,18 +7,6 @@
 .button-hover {
   background-color: #0a32b8;
 }
-.button-delete {
-  border: none;
-  background-color: #07237e;
-  color: whitesmoke;
-  padding: 10px 20px;
-  width: fit-content;
-  border-radius: 5px;
-  padding: 5px 10px;
-  background-color: pink;
-  color: darkred;
-  border: 1px solid darkred;
-}
 .button-delete-hover {
   color: red;
   border-color: red;

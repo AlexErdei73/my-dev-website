@@ -3,6 +3,7 @@
 @card-width: 350px;
 @card-height: 200px;
 @max-title-height: 75px;
+@btn-width: 75px;
 @card-background-color: lightgray;
 
 .post-card-edge(@border-radius-top:0, @border-radius-bottom:0, @color: @primary-color) {
@@ -50,24 +51,26 @@
     .post-card-edge(0, @gap, rgb(107, 107, 107));
   }
   &__button {
-    .button();
-    display: block;
-    margin: @gap auto;
+    .button-sm(@btn-width) !important;
   }
   &__button:hover {
-    .button-hover();
+    .button-hover() !important;
   }
-  &__button--delete {
-    .button-delete() !important;
-    border-radius: 50% !important;
+  &__button--delete-lg {
+    .button-delete(@btn-width) !important;
   }
-  &__button--delete:hover {
+  &__button--delete-lg:hover {
     .button-delete-hover() !important;
   }
   &__header-text {
     height: 100%;
     .flex-column();
     justify-content: center;
+  }
+  &__button-container {
+    .flex-row();
+    justify-content: space-around;
+    align-items: center;
   }
 }
 

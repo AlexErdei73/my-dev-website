@@ -7,6 +7,10 @@
 .button-hover {
   background-color: #0a32b8;
 }
+.button-delete-hover {
+  color: red;
+  border-color: red;
+}
 .input {
   border-color: #07237e;
   border-radius: 5px;

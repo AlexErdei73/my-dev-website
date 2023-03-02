@@ -12,19 +12,17 @@ const PostCard = (props) => {
         <div className="post-card__header-text">
           <div>By {author.username}</div>
         </div>
-        {edit && (
-          <button type="button" className="post-card__button--delete">
-            X
-          </button>
-        )}
       </div>
       <div className="post-card__body">
         <div className="post-card__title">
           <h2 className="post-card__title">{title}</h2>
         </div>
-        <button className="post-card__button" onClick={() => onClick(post)}>
-          View
-        </button>
+        <div className="post-card__button-container">
+          <button className="post-card__button" onClick={() => onClick(post)}>
+            View
+          </button>
+          <button className="post-card__button--delete-lg">Delete</button>
+        </div>
       </div>
       <div className="post-card__footer">
         <div>Created:{createdAt && createdAt.slice(0, 10)}</div>

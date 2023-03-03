@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./Card";
 import "./Modal.css";
 
 const Modal = (props) => {
-	const { show, children } = props;
+  const { show, variant, children } = props;
 
-	return (
-		<div className={`modal ${show && "show"}`}>
-			<Card headerText="Hello Alex!" footerTextLeft="Close me with the button!">
-				{children}
-			</Card>
-		</div>
-	);
+  return (
+    <div className={`modal ${show && "show"}`}>
+      <Card
+        variant={variant}
+        headerText="Hello Alex!"
+        footerTextLeft="Close me with the button!"
+      >
+        {children}
+      </Card>
+    </div>
+  );
 };
 
 export default Modal;

@@ -13,6 +13,7 @@ const Login = (props) => {
     posts,
     setPostIndex,
     setEdit,
+    open,
   } = props;
   const { user, msg } = loginState;
 
@@ -50,6 +51,7 @@ const Login = (props) => {
             setEdit(true);
           }}
           edit={true}
+          open={open}
         />
 
         <Link to="/new-post" className="logout__button--link">

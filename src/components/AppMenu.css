@@ -17,6 +17,24 @@
   height: 1.6rem;
   outline: none;
 }
+.button {
+  border: none;
+  background-color: #07237e;
+  color: whitesmoke;
+  padding: 10px 20px;
+  width: fit-content;
+  border-radius: 10px;
+}
+.button:hover {
+  background-color: #0a32b8;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 10px;
+  align-items: center;
+}
 .nav {
   position: fixed;
   top: 0;

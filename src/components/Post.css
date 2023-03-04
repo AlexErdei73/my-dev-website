@@ -1,8 +1,6 @@
 .App {
-  background: whitesmoke;
   color: black;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 .button-hover {
   background-color: #0a32b8;
@@ -71,9 +69,7 @@
   border-color: red !important;
 }
 .post {
-  overflow-x: hidden;
   margin-left: 250px;
-  min-height: 100vh;
   padding: 10px;
   max-width: 700px;
 }

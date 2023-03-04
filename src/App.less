@@ -120,4 +120,21 @@
 	.flex-col();
 	margin: @gap;
 	align-items: center;
+	&__button-container {
+		width: 100%;
+		.flex-row();
+		justify-content: space-around;
+	}
+	&__button {
+		.button-sm();
+	}
+	&__button:hover {
+		.button-hover();
+	}
+	&__button--delete {
+		.button-delete() !important;
+	}
+	&__button--delete:hover {
+		.button-delete-hover() !important;
+	}
 }

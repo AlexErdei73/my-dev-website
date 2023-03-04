@@ -10,12 +10,14 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import NewPost from "./components/NewPost";
 import Modal from "./components/Modal";
+import ErrorMsg from "./components/ErrorMsg";
 import {
 	login,
 	updatePost,
 	updateBlock,
 	getPosts,
 	postPosts,
+	deletePosts,
 } from "./backend/backend";
 
 function App() {
@@ -49,6 +51,7 @@ function App() {
 
 	const EMPTY_RESPONSE = {
 		success: false,
+		type: "POST",
 		post: {
 			author: "",
 			title: "",
@@ -56,7 +59,7 @@ function App() {
 		errors: [],
 	};
 
-	const [createPostResponse, setCreatePostResponse] = useState(EMPTY_RESPONSE);
+	const [response, setResponse] = useState(EMPTY_RESPONSE);
 
 	useEffect(() => {
 		getPosts().then((response) => {
@@ -68,15 +71,24 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		const { success, post, errors } = createPostResponse;
+		const { success, type, post, errors } = response;
 		if (post.author === "" && post.title === "" && errors.length === 0) return;
-		if (success) {
+		if (type === "POST" && success) {
 			const newPosts = JSON.parse(JSON.stringify(posts));
 			post.author = { ...loginState.user };
 			newPosts.push(post);
 			setPosts(newPosts);
 		}
-	}, [createPostResponse]);
+		if (type === "DELETE" && success) {
+			const newPosts = JSON.parse(JSON.stringify(posts));
+			newPosts.splice(index, 1);
+			console.log(newPosts);
+			setPosts(newPosts);
+			setIndex(0);
+			deleteResponse();
+			closeModal();
+		}
+	}, [response]);
 
 	async function onSubmit(loginForm) {
 		const { username, password } = loginForm;
@@ -86,9 +98,9 @@ function App() {
 			newLoginState.success = response.success;
 			newLoginState.msg = response.msg;
 			newLoginState.token = response.token;
-			newLoginState.user._id = response.user._id;
 			if (response.success) {
 				//user logged in successfully
+				newLoginState.user._id = response.user._id;
 				newLoginState.user.password = ""; //Do not store password as it is sensitive information!!!
 				//Store newLoginState, which contains the token, in localStorage
 				localStorage.setItem("loginState", JSON.stringify(newLoginState));
@@ -151,10 +163,32 @@ function App() {
 		post.author = loginState.user._id;
 		try {
 			const response = await postPosts(post, loginState.token);
-			setCreatePostResponse(response);
+			setResponse({
+				...response,
+				type: "POST",
+			});
 		} catch (error) {
-			setCreatePostResponse({
+			setResponse({
 				success: false,
+				type: "POST",
+				post,
+				errors: [{ msg: error.message }],
+			});
+		}
+	}
+
+	async function erasePost(post) {
+		try {
+			const response = await deletePosts(post, loginState.token);
+			setResponse({
+				...response,
+				post,
+				type: "DELETE",
+			});
+		} catch (error) {
+			setResponse({
+				success: false,
+				type: "DELETE",
 				post,
 				errors: [{ msg: error.message }],
 			});
@@ -162,7 +196,7 @@ function App() {
 	}
 
 	function deleteResponse() {
-		setCreatePostResponse(EMPTY_RESPONSE);
+		setResponse(EMPTY_RESPONSE);
 	}
 
 	function openModal() {
@@ -229,7 +263,7 @@ function App() {
 						element={
 							<NewPost
 								submit={createPost}
-								response={createPostResponse}
+								response={response}
 								deleteResponse={deleteResponse}
 							/>
 						}
@@ -243,14 +277,25 @@ function App() {
 				header="Danger!"
 				footer="Permanent data loss">
 				<div className="modal-body">
-					<p>You are going to delete the post permanently. Are you sure?</p>
+					{response.errors.length === 0 && (
+						<p>You are going to delete the post permanently. Are you sure?</p>
+					)}
+					{response.errors.length !== 0 && (
+						<ErrorMsg msg={response.errors[0].msg} />
+					)}
 					<div className="modal-body__button-container">
-						<button type="button" className="modal-body__button--delete">
+						<button
+							type="button"
+							onClick={() => erasePost(posts[index])}
+							className="modal-body__button--delete">
 							Delete
 						</button>
 						<button
 							type="button"
-							onClick={closeModal}
+							onClick={() => {
+								deleteResponse();
+								closeModal();
+							}}
 							className="modal-body__button">
 							Cancel
 						</button>

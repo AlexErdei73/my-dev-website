@@ -194,6 +194,23 @@ function App() {
     }
   }
 
+  async function togglePublish(post) {
+    post.published = !post.published;
+    try {
+      const response = await updatePost(post, loginState.token);
+      if (response.success) {
+        const newPosts = JSON.parse(JSON.stringify(posts));
+        const newPost = newPosts.find((newPost) => newPost._id === post._id);
+        newPost.published = post.published;
+        setPosts(newPosts);
+      } else {
+        throw new Error(response.errors[0].msg);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   function deleteResponse() {
     setResponse(EMPTY_RESPONSE);
   }
@@ -257,6 +274,7 @@ function App() {
                 setPostIndex={setIndex}
                 setEdit={setEdit}
                 open={openModal}
+                publish={togglePublish}
               />
             }
           />

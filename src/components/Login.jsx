@@ -14,12 +14,11 @@ const Login = (props) => {
     setPostIndex,
     setEdit,
     open,
+    publish,
   } = props;
   const { user, msg } = loginState;
 
-  const [userPosts, setUserPosts] = useState(
-    [] //posts.filter((post) => post.author.username === loginState.user.username)
-  );
+  const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     if (!loginState.success) return;
@@ -52,6 +51,7 @@ const Login = (props) => {
           }}
           edit={true}
           open={open}
+          publish={publish}
         />
 
         <Link to="/new-post" className="logout__button--link">

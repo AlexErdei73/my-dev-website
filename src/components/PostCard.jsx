@@ -3,7 +3,7 @@ import Card from "./Card";
 import "./PostCard.css";
 
 const PostCard = (props) => {
-  const { post, onClick, edit, open } = props;
+  const { post, onClick, edit, open, publish } = props;
 
   const { title, author, createdAt, updatedAt } = post;
 
@@ -21,6 +21,11 @@ const PostCard = (props) => {
           <button className="post-card__button" onClick={() => onClick(post)}>
             View
           </button>
+          {edit && (
+            <button className="post-card__button" onClick={() => publish(post)}>
+              {post.published ? "Hide" : "Publish"}
+            </button>
+          )}
           {edit && (
             <button className="post-card__button--delete-lg" onClick={open}>
               Delete

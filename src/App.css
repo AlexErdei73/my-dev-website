@@ -1,8 +1,6 @@
 .App {
-  background: whitesmoke;
   color: black;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 .button-hover {
   background-color: #0a32b8;

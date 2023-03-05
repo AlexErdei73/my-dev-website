@@ -19,9 +19,12 @@ import {
   postPosts,
   deletePosts,
 } from "./backend/backend";
+import ErrorDlg from "./components/ErrorDlg";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+
+  const [showErrorDlg, setShowErrorDlg] = useState(false);
 
   const [index, setIndex] = useState(0);
 
@@ -60,6 +63,8 @@ function App() {
   };
 
   const [response, setResponse] = useState(EMPTY_RESPONSE);
+
+  const [publishError, setPublishError] = useState({ msg: "" });
 
   useEffect(() => {
     getPosts().then((response) => {
@@ -207,7 +212,7 @@ function App() {
         throw new Error(response.errors[0].msg);
       }
     } catch (error) {
-      console.error(error.message);
+      openErrorDlg({ msg: error.message });
     }
   }
 
@@ -221,6 +226,16 @@ function App() {
 
   function closeModal() {
     setShowModal(false);
+  }
+
+  function openErrorDlg(error) {
+    setPublishError(error);
+    setShowErrorDlg(true);
+  }
+
+  function closeErrorDlg() {
+    setPublishError({ msg: "" });
+    setShowErrorDlg(false);
   }
 
   return (
@@ -326,6 +341,12 @@ function App() {
           </div>
         </div>
       </Modal>
+
+      <ErrorDlg
+        open={showErrorDlg}
+        close={closeErrorDlg}
+        error={publishError}
+      />
     </div>
   );
 }

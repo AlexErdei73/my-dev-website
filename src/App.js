@@ -22,6 +22,8 @@ import {
 import ErrorDlg from "./components/ErrorDlg";
 
 function App() {
+  const ABOUT_ID = "6404bca2160e826767e36aa3";
+
   const [showModal, setShowModal] = useState(false);
 
   const [showErrorDlg, setShowErrorDlg] = useState(false);
@@ -39,6 +41,14 @@ function App() {
       content: [],
     },
   ]);
+
+  const [aboutPost, setAboutPost] = useState({
+    title: "...Loading",
+    author: {
+      username: "...Loading",
+    },
+    content: [],
+  });
 
   const [postErrors, setPostErrors] = useState([]);
 
@@ -69,6 +79,7 @@ function App() {
   useEffect(() => {
     getPosts().then((response) => {
       setPosts(response.posts);
+      setAboutPost(response.posts.find((post) => post._id === ABOUT_ID));
     });
     //get loginState from localStorage
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
@@ -264,7 +275,7 @@ function App() {
               />
             }
           />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About post={aboutPost} />} />
           <Route
             path="/"
             element={

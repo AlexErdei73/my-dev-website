@@ -1,8 +1,10 @@
 import React from "react";
-import "./About.css";
+import Post from "./Post";
 
-const About = () => {
-  return <h1 className="about about__title">About</h1>;
+const About = (props) => {
+  const { post } = props;
+
+  return <Post post={post} edit={false} errors={[]} />;
 };
 
 export default About;

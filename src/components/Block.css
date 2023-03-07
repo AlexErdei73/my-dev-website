@@ -122,7 +122,7 @@
 }
 .block__code {
   width: 100%;
-  max-width: min(550px, 75%);
+  max-width: min(750px, 95%);
   flex-shrink: 1;
   flex-grow: 1;
 }

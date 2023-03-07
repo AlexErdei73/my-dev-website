@@ -57,6 +57,7 @@ function App() {
     user: {
       username: "",
       password: "",
+      isAdmin: false,
     },
     token: "",
     msg: "",
@@ -117,6 +118,7 @@ function App() {
       if (response.success) {
         //user logged in successfully
         newLoginState.user._id = response.user._id;
+        newLoginState.user.isAdmin = response.user.isAdmin;
         newLoginState.user.password = ""; //Do not store password as it is sensitive information!!!
         //Store newLoginState, which contains the token, in localStorage
         localStorage.setItem("loginState", JSON.stringify(newLoginState));
@@ -285,6 +287,9 @@ function App() {
                   setIndex(ind);
                   setEdit(false);
                 }}
+                admin={loginState.user.isAdmin}
+                open={openModal}
+                publish={togglePublish}
               />
             }
           />

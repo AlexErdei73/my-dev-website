@@ -3,7 +3,7 @@ import "./ErrorMsg.css";
 
 const ErrorMsg = (props) => {
   const { msg } = props;
-  return <div className="error-msg">{msg}</div>;
+  return <p className="error-msg">{msg}</p>;
 };
 
 export default ErrorMsg;

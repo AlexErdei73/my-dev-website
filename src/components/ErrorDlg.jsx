@@ -13,9 +13,7 @@ const ErrorDlg = (props) => {
       show={open}
     >
       <div className="modal-body">
-        <p>
-          <ErrorMsg msg={error.msg} />
-        </p>
+        <ErrorMsg msg={error.msg} />
         <div className="modal-body__button-container">
           <button className="modal-body__button" onClick={close}>
             OK

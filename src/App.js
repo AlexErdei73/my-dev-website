@@ -309,7 +309,10 @@ function App() {
               />
             }
           />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/signup"
+            element={<Signup currentUser={loginState.user} msg="" />}
+          />
           <Route
             path="/new-post"
             element={

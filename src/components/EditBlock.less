@@ -5,6 +5,7 @@
   .flex-col(@gap);
   .input-container {
     .flex-row(@gap);
+    input,
     textarea {
       .input();
       height: auto;
@@ -16,6 +17,12 @@
   .button-container {
     display: flex;
     justify-content: space-between;
+    button {
+      .button-sm();
+    }
+    button:hover {
+      .button-hover();
+    }
   }
   &__textarea {
     flex-grow: 1;

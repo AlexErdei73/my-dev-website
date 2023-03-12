@@ -58,6 +58,8 @@ function App() {
       username: "",
       password: "",
       isAdmin: false,
+      name: "",
+      bio: "",
     },
     token: "",
     msg: "",

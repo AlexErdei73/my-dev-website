@@ -30,7 +30,7 @@ const Signup = (props) => {
       <input
         type="text"
         id="username"
-        className="login__username"
+        className="signup__username"
         onChange={handleChange}
         value={user.username}
         required
@@ -39,13 +39,32 @@ const Signup = (props) => {
       <input
         type="text"
         id="password"
-        className="login__password"
+        className="signup__password"
         onChange={handleChange}
         value={user.password}
         required
       />
-      <button type="submit" className="login__button">
-        Login
+      <label htmlFor="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        className="signup__username"
+        onChange={handleChange}
+        value={user.name}
+      />
+      <label htmlFor="bio">Bio</label>
+      <textarea
+        name="bio"
+        id="bio"
+        cols="30"
+        rows="10"
+        className="submit_textarea"
+        onChange={handleChange}
+      >
+        {user.bio}
+      </textarea>
+      <button type="submit" className="signup__button">
+        Sign Up
       </button>
       {msg && <ErrorMsg msg={msg} />}
     </form>

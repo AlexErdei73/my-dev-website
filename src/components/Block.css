@@ -121,8 +121,7 @@
   border-color: red;
 }
 .block__code {
-  width: 100%;
-  max-width: min(750px, 95%);
+  min-width: calc(100% - (63px + 10px));
   flex-shrink: 1;
   flex-grow: 1;
 }

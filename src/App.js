@@ -18,6 +18,7 @@ import {
   getPosts,
   postPosts,
   deletePosts,
+  createUser,
 } from "./backend/backend";
 import ErrorDlg from "./components/ErrorDlg";
 
@@ -59,6 +60,7 @@ function App() {
       password: "",
       isAdmin: false,
       name: "",
+      jobTitle: "",
       bio: "",
     },
     token: "",
@@ -78,6 +80,8 @@ function App() {
   const [response, setResponse] = useState(EMPTY_RESPONSE);
 
   const [publishError, setPublishError] = useState({ msg: "" });
+
+  const [signupErrors, setSignupErrors] = useState([]);
 
   useEffect(() => {
     getPosts().then((response) => {
@@ -131,6 +135,24 @@ function App() {
       const newLoginState = { ...loginState };
       newLoginState.msg = error.message;
       setLoginState(newLoginState);
+    }
+  }
+
+  async function submitUser(user) {
+    const response = await createUser(user);
+    logout();
+    if (!response.success) {
+      user._id = "";
+      user.isAdmin = false;
+      setLoginState({
+        success: false,
+        user,
+        errors: [],
+      });
+      setSignupErrors(response.errors);
+    } else {
+      setSignupErrors([]);
+      onSubmit(user);
     }
   }
 
@@ -313,7 +335,14 @@ function App() {
           />
           <Route
             path="/signup"
-            element={<Signup currentUser={loginState.user} msg="" />}
+            element={
+              <Signup
+                currentUser={loginState.user}
+                submit={submitUser}
+                errors={signupErrors}
+                loginSuccess={loginState.success}
+              />
+            }
           />
           <Route
             path="/new-post"

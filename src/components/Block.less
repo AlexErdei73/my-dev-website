@@ -1,7 +1,7 @@
 @import "../App.less";
 
 @btn-width: 63px;
-@code-block-max-width: 750px;
+@code-block-max-width: 900px;
 
 .block {
   max-width: @post-width;
@@ -39,8 +39,7 @@
     .button-delete-hover();
   }
   &__code {
-    width: 100%;
-    max-width: min(@code-block-max-width, 95%);
+    min-width: calc(100% - (@btn-width + @gap));
     flex-shrink: 1;
     flex-grow: 1;
     pre {

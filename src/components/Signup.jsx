@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ErrorMsg from "./ErrorMsg";
+import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = (props) => {
-  const { currentUser, msg } = props;
+  const { currentUser, submit, errors, loginSuccess } = props;
 
   const [user, setUser] = useState(currentUser);
+
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!loginSuccess) return;
+    setSuccess(true);
+  }, [loginSuccess]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!success) return;
+    navigate("/login");
+  }, [success]);
 
   function handleChange(event) {
     const fieldInput = event.target;
@@ -21,7 +36,7 @@ const Signup = (props) => {
       className="signup"
       onSubmit={(event) => {
         event.preventDefault();
-        return;
+        submit(user);
       }}
       validate="true"
     >
@@ -48,9 +63,17 @@ const Signup = (props) => {
       <input
         type="text"
         id="name"
-        className="signup__username"
+        className="signup__name"
         onChange={handleChange}
         value={user.name}
+      />
+      <label htmlFor="jobTitle">Job Title</label>
+      <input
+        type="text"
+        id="jobTitle"
+        className="signup__job-title"
+        onChange={handleChange}
+        value={user.jobTitle}
       />
       <label htmlFor="bio">Bio</label>
       <textarea
@@ -58,7 +81,7 @@ const Signup = (props) => {
         id="bio"
         cols="30"
         rows="10"
-        className="submit_textarea"
+        className="submit_bio"
         onChange={handleChange}
       >
         {user.bio}
@@ -66,7 +89,9 @@ const Signup = (props) => {
       <button type="submit" className="signup__button">
         Sign Up
       </button>
-      {msg && <ErrorMsg msg={msg} />}
+      {errors &&
+        errors.length !== 0 &&
+        errors.map((error) => <ErrorMsg msg={error.msg} />)}
     </form>
   );
 };

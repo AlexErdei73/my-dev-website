@@ -1,28 +1,16 @@
 @import "../App.less";
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: @gap;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: @gap;
-}
-
 .edit-block {
   width: 100%;
-  .flex-col();
+  .flex-col(@gap);
   .input-container {
-    .flex-row();
+    .flex-row(@gap);
     textarea {
       .input();
       height: auto;
     }
     .type-area {
-      .flex-col();
+      .flex-col(@gap);
     }
   }
   .button-container {

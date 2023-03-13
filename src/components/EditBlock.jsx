@@ -6,10 +6,19 @@ const EditBlock = (props) => {
   const { block, submit, cancel } = props;
   const { errors } = block;
 
-  const [newBlock, setNewBlock] = useState(block);
+  function addLinksToBlockText(block) {
+    if (block.type === "paragraph") {
+      const copyBlock = JSON.parse(JSON.stringify(block));
+      copyBlock.text = textWithLinks(block);
+      copyBlock.links = [];
+      return copyBlock;
+    } else return block;
+  }
+
+  const [newBlock, setNewBlock] = useState(addLinksToBlockText(block));
 
   useEffect(() => {
-    setNewBlock(block);
+    setNewBlock(addLinksToBlockText(block));
   }, [block]);
 
   function numberOfLines(text) {
@@ -17,6 +26,7 @@ const EditBlock = (props) => {
   }
 
   function textWithLinks(block) {
+    if (!block.links) return block.text;
     const text = [];
     let previousPosition = 0;
     block.links.forEach((link) => {
@@ -58,14 +68,10 @@ const EditBlock = (props) => {
 
   function handleChange(event) {
     const id = event.target.id;
-    const copyBlock = { ...newBlock };
-    if (id === "text" && newBlock.type === "paragraph") {
-      const output = separateLinksFromText(event.target.value);
-      copyBlock.text = output.text;
-      copyBlock.links = output.links;
-    } else {
-      copyBlock[id] = event.target.value;
-    }
+    const copyBlock = {
+      ...newBlock,
+      [id]: event.target.value,
+    };
     setNewBlock(copyBlock);
   }
 
@@ -74,7 +80,13 @@ const EditBlock = (props) => {
       className="edit-block"
       onSubmit={(event) => {
         event.preventDefault();
-        submit(newBlock);
+        if (newBlock.type === "paragraph") {
+          const copyBlock = JSON.parse(JSON.stringify(newBlock));
+          const output = separateLinksFromText(newBlock.text);
+          copyBlock.text = output.text;
+          copyBlock.links = output.links;
+          submit(copyBlock);
+        } else submit(newBlock);
       }}
     >
       <div className="input-container">
@@ -91,8 +103,8 @@ const EditBlock = (props) => {
         {block.type !== "subtitle" && (
           <textarea
             className="edit-block__textarea"
-            rows={numberOfLines(textWithLinks(newBlock))}
-            value={textWithLinks(newBlock)}
+            rows={numberOfLines(newBlock.text)}
+            value={newBlock.text}
             onChange={handleChange}
             id="text"
           ></textarea>

@@ -138,21 +138,29 @@ function App() {
     }
   }
 
+  function handleUserErrors(user, errors) {
+    user._id = "";
+    user.isAdmin = false;
+    setLoginState({
+      success: false,
+      user,
+      errors: [],
+    });
+    setSignupErrors(errors);
+  }
+
   async function submitUser(user) {
-    const response = await createUser(user);
-    logout();
-    if (!response.success) {
-      user._id = "";
-      user.isAdmin = false;
-      setLoginState({
-        success: false,
-        user,
-        errors: [],
-      });
-      setSignupErrors(response.errors);
-    } else {
-      setSignupErrors([]);
-      onSubmit(user);
+    try {
+      const response = await createUser(user);
+      logout();
+      if (!response.success) {
+        handleUserErrors(user, response.errors);
+      } else {
+        setSignupErrors([]);
+        onSubmit(user);
+      }
+    } catch (error) {
+      handleUserErrors(user, [{ msg: error.message }]);
     }
   }
 
@@ -204,6 +212,7 @@ function App() {
     post.author = loginState.user._id;
     try {
       const response = await postPosts(post, loginState.token);
+      // The next line will deal with unauthorized access when response do not have post
       if (!response.post) response.post = post;
       setResponse({
         ...response,
@@ -256,6 +265,10 @@ function App() {
 
   function deleteResponse() {
     setResponse(EMPTY_RESPONSE);
+  }
+
+  function deleteErrors() {
+    setSignupErrors([]);
   }
 
   function openModal() {
@@ -342,6 +355,7 @@ function App() {
                 submit={submitUser}
                 errors={signupErrors}
                 loginSuccess={loginState.success}
+                deleteErrors={deleteErrors}
               />
             }
           />

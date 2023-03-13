@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = (props) => {
-  const { currentUser, submit, errors, loginSuccess } = props;
+  const { currentUser, submit, errors, loginSuccess, deleteErrors } = props;
 
   const [user, setUser] = useState(currentUser);
 
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    return () => deleteErrors();
+  }, []);
 
   useEffect(() => {
     if (!loginSuccess) return;

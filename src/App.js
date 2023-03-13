@@ -204,6 +204,7 @@ function App() {
     post.author = loginState.user._id;
     try {
       const response = await postPosts(post, loginState.token);
+      if (!response.post) response.post = post;
       setResponse({
         ...response,
         type: "POST",

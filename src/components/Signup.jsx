@@ -4,17 +4,24 @@ import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = (props) => {
-  const { currentUser, submit, errors, loginSuccess, deleteErrors } = props;
+  const {
+    currentUser,
+    submit,
+    update,
+    errors,
+    loginSuccess,
+    deleteErrors,
+  } = props;
 
   const [user, setUser] = useState(currentUser);
 
-  const [success, setSuccess] = useState(false);
+  //const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     return () => deleteErrors();
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!loginSuccess) return;
     setSuccess(true);
   }, [loginSuccess]);
@@ -24,7 +31,7 @@ const Signup = (props) => {
   useEffect(() => {
     if (!success) return;
     navigate("/login");
-  }, [success]);
+  }, [success]);*/
 
   function handleChange(event) {
     const fieldInput = event.target;
@@ -40,11 +47,13 @@ const Signup = (props) => {
       className="signup"
       onSubmit={(event) => {
         event.preventDefault();
-        submit(user);
+        loginSuccess ? update(user) : submit(user);
       }}
       validate="true"
     >
-      <h1 className="signup__title">Sign Up</h1>
+      <h1 className="signup__title">
+        {loginSuccess ? "Update User" : "Sign Up"}
+      </h1>
       <label htmlFor="username">Username*</label>
       <input
         type="text"
@@ -54,15 +63,17 @@ const Signup = (props) => {
         value={user.username}
         required
       />
-      <label htmlFor="password">Password*</label>
-      <input
-        type="text"
-        id="password"
-        className="signup__password"
-        onChange={handleChange}
-        value={user.password}
-        required
-      />
+      {!loginSuccess && <label htmlFor="password">Password*</label>}
+      {!loginSuccess && (
+        <input
+          type="text"
+          id="password"
+          className="signup__password"
+          onChange={handleChange}
+          value={user.password}
+          required
+        />
+      )}
       <label htmlFor="name">Name</label>
       <input
         type="text"
@@ -91,7 +102,7 @@ const Signup = (props) => {
         {user.bio}
       </textarea>
       <button type="submit" className="signup__button">
-        Sign Up
+        Submit
       </button>
       {errors &&
         errors.length !== 0 &&

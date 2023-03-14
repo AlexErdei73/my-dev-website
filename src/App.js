@@ -123,8 +123,7 @@ function App() {
       newLoginState.token = response.token;
       if (response.success) {
         //user logged in successfully
-        newLoginState.user._id = response.user._id;
-        newLoginState.user.isAdmin = response.user.isAdmin;
+        newLoginState.user = { ...response.user };
         newLoginState.user.password = ""; //Do not store password as it is sensitive information!!!
         //Store newLoginState, which contains the token, in localStorage
         localStorage.setItem("loginState", JSON.stringify(newLoginState));
@@ -162,6 +161,10 @@ function App() {
     } catch (error) {
       handleUserErrors(user, [{ msg: error.message }]);
     }
+  }
+
+  function updateUser(user) {
+    console.log(user);
   }
 
   function logout() {
@@ -292,7 +295,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <AppMenu />
+        <AppMenu loginSuccess={loginState.success} />
         <Routes>
           <Route
             path="/post"
@@ -353,6 +356,7 @@ function App() {
               <Signup
                 currentUser={loginState.user}
                 submit={submitUser}
+                update={updateUser}
                 errors={signupErrors}
                 loginSuccess={loginState.success}
                 deleteErrors={deleteErrors}

@@ -2,8 +2,10 @@ import "./AppMenu.css";
 import { Link } from "react-router-dom";
 import React from "react";
 
-const AppMenu = () => {
+const AppMenu = (props) => {
   const LOGO = "ALEX'S DEV";
+
+  const { loginSuccess } = props;
 
   return (
     <nav className="nav">
@@ -24,7 +26,7 @@ const AppMenu = () => {
           <Link to="/login">Login</Link>
         </li>
         <li className="nav__item">
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/signup">{loginSuccess ? "Update User" : "Sign Up"}</Link>
         </li>
       </ul>
     </nav>

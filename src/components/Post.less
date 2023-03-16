@@ -2,5 +2,11 @@
 
 .post {
   .app-margin();
-  max-width: @post-width;
+  .flex-row(@gap);
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  article {
+    max-width: 100%;
+  }
 }

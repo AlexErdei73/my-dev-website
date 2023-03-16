@@ -71,6 +71,14 @@
 .post {
   margin-left: 250px;
   padding: 10px;
-  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.post article {
+  max-width: 100%;
 }
 /*# sourceMappingURL=Post.css.map */

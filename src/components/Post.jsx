@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Block from "./Block";
 import PostTitle from "./PostTitle";
+import Author from "./Author";
 import { createBlock, deleteBlock } from "../backend/backend";
 import "./Post.css";
 
@@ -61,26 +62,29 @@ const Post = (props) => {
   }
 
   return (
-    <article className="post">
-      <PostTitle title={title} edit={edit} submit={submit} errors={errors} />
-      {content.map((block) => (
-        <Block
-          key={block._id}
-          block={block}
-          edit={edit}
-          submit={updateBlock}
-          remove={remove}
-        />
-      ))}
-      {edit && (
-        <Block
-          key="new-block"
-          block={newBlock}
-          edit={edit}
-          submit={saveBlock}
-        />
-      )}
-    </article>
+    <div className="post">
+      <Author author={author} className="author" />
+      <article>
+        <PostTitle title={title} edit={edit} submit={submit} errors={errors} />
+        {content.map((block) => (
+          <Block
+            key={block._id}
+            block={block}
+            edit={edit}
+            submit={updateBlock}
+            remove={remove}
+          />
+        ))}
+        {edit && (
+          <Block
+            key="new-block"
+            block={newBlock}
+            edit={edit}
+            submit={saveBlock}
+          />
+        )}
+      </article>
+    </div>
   );
 };
 

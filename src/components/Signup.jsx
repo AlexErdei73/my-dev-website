@@ -105,7 +105,7 @@ const Signup = (props) => {
       </button>
       {errors &&
         errors.length !== 0 &&
-        errors.map((error) => <ErrorMsg msg={error.msg} />)}
+        errors.map((error, index) => <ErrorMsg msg={error.msg} key={index} />)}
     </form>
   );
 };

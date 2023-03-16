@@ -19,6 +19,7 @@ import {
   postPosts,
   deletePosts,
   createUser,
+  updateUser,
 } from "./backend/backend";
 import ErrorDlg from "./components/ErrorDlg";
 
@@ -163,8 +164,20 @@ function App() {
     }
   }
 
-  function updateUser(user) {
-    console.log(user);
+  async function modifyUser(user) {
+    try {
+      const response = await updateUser(user, loginState.token);
+      if (!response.success) {
+        setSignupErrors(response.errors);
+      } else {
+        setSignupErrors([]);
+        const newLoginState = JSON.parse(JSON.stringify(loginState));
+        newLoginState.user = user;
+        setLoginState(newLoginState);
+      }
+    } catch (error) {
+      setSignupErrors([{ msg: error.message }]);
+    }
   }
 
   function logout() {
@@ -356,7 +369,7 @@ function App() {
               <Signup
                 currentUser={loginState.user}
                 submit={submitUser}
-                update={updateUser}
+                update={modifyUser}
                 errors={signupErrors}
                 loginSuccess={loginState.success}
                 deleteErrors={deleteErrors}

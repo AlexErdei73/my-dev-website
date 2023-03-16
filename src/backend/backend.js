@@ -139,3 +139,16 @@ export async function createUser(user) {
   const json = await response.json();
   return json;
 }
+
+export async function updateUser(user, token) {
+  const response = await fetch(`http://localhost:5000/users/${user._id}`, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(user),
+  });
+  return await getJSON(response);
+}

@@ -98,9 +98,8 @@ const Signup = (props) => {
         rows="10"
         className="submit_bio"
         onChange={handleChange}
-      >
-        {user.bio}
-      </textarea>
+        value={user.bio}
+      />
       <button type="submit" className="signup__button">
         Submit
       </button>

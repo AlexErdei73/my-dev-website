@@ -87,7 +87,6 @@ function App() {
   useEffect(() => {
     getPosts().then((response) => {
       setPosts(response.posts);
-      setAboutPost(response.posts.find((post) => post._id === ABOUT_ID));
     });
     //get loginState from localStorage
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
@@ -106,13 +105,19 @@ function App() {
     if (type === "DELETE" && success) {
       const newPosts = JSON.parse(JSON.stringify(posts));
       newPosts.splice(index, 1);
-      console.log(newPosts);
       setPosts(newPosts);
       setIndex(0);
       deleteResponse();
       closeModal();
     }
   }, [response]);
+
+  useEffect(() => {
+    const newAboutPost = posts.find((post) => post._id === ABOUT_ID);
+    if (!newAboutPost) return;
+    setAboutPost(newAboutPost);
+    console.log(posts.map((post) => post.author));
+  }, [posts]);
 
   async function onSubmit(loginForm) {
     const { username, password } = loginForm;
@@ -136,6 +141,14 @@ function App() {
       newLoginState.msg = error.message;
       setLoginState(newLoginState);
     }
+  }
+
+  function updateAuthorInPosts(author) {
+    const newPosts = JSON.parse(JSON.stringify(posts));
+    newPosts.forEach((post) => {
+      if (post.author._id === author._id) post.author = author;
+    });
+    setPosts(newPosts);
   }
 
   function handleUserErrors(user, errors) {
@@ -170,6 +183,7 @@ function App() {
       if (!response.success) {
         setSignupErrors(response.errors);
       } else {
+        updateAuthorInPosts(user);
         setSignupErrors([]);
         const newLoginState = JSON.parse(JSON.stringify(loginState));
         newLoginState.user = user;

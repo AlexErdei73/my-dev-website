@@ -13,7 +13,8 @@ const PostCard = (props) => {
 
   return (
     <Card
-      headerText={`By ${author.username}`}
+      headerTextLeft={`By ${author.username}`}
+      headerTextRight={`Likes: ${likes.length}`}
       footerTextLeft={`Created:${createdAt && createdAt.slice(0, 10)}`}
       footerTextRight={`Updated:${updatedAt && updatedAt.slice(0, 10)}`}
     >

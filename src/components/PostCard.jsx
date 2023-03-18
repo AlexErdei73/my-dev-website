@@ -3,9 +3,13 @@ import Card from "./Card";
 import "./PostCard.css";
 
 const PostCard = (props) => {
-  const { post, onClick, edit, open, publish, admin } = props;
+  const { post, onClick, edit, open, publish, user } = props;
 
-  const { title, author, createdAt, updatedAt } = post;
+  const { title, author, createdAt, updatedAt, likes } = post;
+
+  const admin = user ? user.isAdmin : false;
+
+  const isPostLiked = user ? likes.indexOf(user._id) !== -1 : false;
 
   return (
     <Card
@@ -21,6 +25,11 @@ const PostCard = (props) => {
           <button className="post-card__button" onClick={() => onClick(post)}>
             View
           </button>
+          {!edit && user && user._id && (
+            <button className="post-card__button" onClick={() => onClick(post)}>
+              {isPostLiked ? "Unlike" : "Like"}
+            </button>
+          )}
           {edit && (
             <button className="post-card__button" onClick={() => publish(post)}>
               {post.published ? "Hide" : "Publish"}

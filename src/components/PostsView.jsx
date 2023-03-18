@@ -4,7 +4,8 @@ import "./PostsView.css";
 import { useNavigate } from "react-router-dom";
 
 const PostsView = (props) => {
-  const { posts, setIndex, edit, open, publish, admin } = props;
+  const { posts, setIndex, edit, open, publish, user } = props;
+
   const navigate = useNavigate();
 
   const [postIndex, setPostIndex] = useState(-1);
@@ -38,7 +39,7 @@ const PostsView = (props) => {
                 open();
               }}
               publish={publish}
-              admin={admin}
+              user={user}
             />
           )
       )}

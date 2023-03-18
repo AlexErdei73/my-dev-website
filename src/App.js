@@ -20,6 +20,7 @@ import {
   deletePosts,
   createUser,
   updateUser,
+  updatePostLikes,
 } from "./backend/backend";
 import ErrorDlg from "./components/ErrorDlg";
 
@@ -91,6 +92,7 @@ function App() {
       })
       .catch((error) => {
         console.error(error.message);
+        openErrorDlg({ msg: error.message });
       });
     //get loginState from localStorage
     const initialLoginState = JSON.parse(localStorage.getItem("loginState"));
@@ -120,7 +122,6 @@ function App() {
     const newAboutPost = posts.find((post) => post._id === ABOUT_ID);
     if (!newAboutPost) return;
     setAboutPost(newAboutPost);
-    console.log(posts.map((post) => post.author));
   }, [posts]);
 
   async function onSubmit(loginForm) {
@@ -297,6 +298,25 @@ function App() {
     }
   }
 
+  async function toggleLike(postId, userId) {
+    try {
+      const response = await updatePostLikes(postId, userId);
+      if (response.success) {
+        const newPosts = JSON.parse(JSON.stringify(posts));
+        const newPost = newPosts.find((newPost) => newPost._id === postId);
+        const likeIndex = newPost.likes.indexOf(userId);
+        const isPostLiked = likeIndex !== -1;
+        if (!isPostLiked) newPost.likes.push(userId);
+        else newPost.likes.splice(likeIndex, 1);
+        setPosts(newPosts);
+      } else {
+        throw new Error(response.errors[0].msg);
+      }
+    } catch (error) {
+      openErrorDlg({ msg: error.message });
+    }
+  }
+
   function deleteResponse() {
     setResponse(EMPTY_RESPONSE);
   }
@@ -362,6 +382,7 @@ function App() {
                 user={loginState.user}
                 open={openModal}
                 publish={togglePublish}
+                like={toggleLike}
               />
             }
           />

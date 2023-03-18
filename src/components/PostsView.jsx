@@ -4,7 +4,7 @@ import "./PostsView.css";
 import { useNavigate } from "react-router-dom";
 
 const PostsView = (props) => {
-  const { posts, setIndex, edit, open, publish, user } = props;
+  const { posts, setIndex, edit, open, publish, user, like } = props;
 
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ const PostsView = (props) => {
               }}
               publish={publish}
               user={user}
+              like={like}
             />
           )
       )}

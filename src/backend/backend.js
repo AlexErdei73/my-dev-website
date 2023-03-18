@@ -152,3 +152,16 @@ export async function updateUser(user, token) {
   });
   return await getJSON(response);
 }
+
+export async function updatePostLikes(postId, userId) {
+  const response = await fetch(`http://localhost:5000/posts/${postId}/likes`, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ user: userId }),
+  });
+  const json = await response.json();
+  return json;
+}

@@ -7,7 +7,7 @@ import "./Post.css";
 
 const Post = (props) => {
   const { post, submit, updateBlock, errors, setPost, token, edit } = props;
-  const { _id, title, author, content, comments } = post;
+  const { _id, title, author, content } = post;
 
   const NEW_EMPTY_BLOCK = {
     text: "New Block",

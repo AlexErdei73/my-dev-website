@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ErrorMsg from "./ErrorMsg";
-import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = (props) => {
@@ -15,23 +14,9 @@ const Signup = (props) => {
 
   const [user, setUser] = useState(currentUser);
 
-  //const [success, setSuccess] = useState(false);
-
   useEffect(() => {
     return () => deleteErrors();
   }, []);
-
-  /*useEffect(() => {
-    if (!loginSuccess) return;
-    setSuccess(true);
-  }, [loginSuccess]);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!success) return;
-    navigate("/login");
-  }, [success]);*/
 
   function handleChange(event) {
     const fieldInput = event.target;

@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import ErrorMsg from "./ErrorMsg";
 import "./Signup.css";
 
 const Signup = (props) => {
-  const {
-    currentUser,
-    submit,
-    update,
-    errors,
-    loginSuccess,
-    deleteErrors,
-  } = props;
+  const { loginState, submit, update, response, deleteErrors } = props;
+
+  const { user: currentUser, success: loginSuccess } = loginState;
+  const { success, errors } = response;
 
   const [user, setUser] = useState(currentUser);
 
   useEffect(() => {
     return () => deleteErrors();
   }, []);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!success) return;
+    navigate("/login");
+  }, [success]);
 
   function handleChange(event) {
     const fieldInput = event.target;

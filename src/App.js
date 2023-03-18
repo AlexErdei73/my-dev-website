@@ -83,7 +83,10 @@ function App() {
 
   const [publishError, setPublishError] = useState({ msg: "" });
 
-  const [signupErrors, setSignupErrors] = useState([]);
+  const [signupResponse, setSignupResponse] = useState({
+    success: false,
+    errors: [],
+  });
 
   useEffect(() => {
     getPosts()
@@ -164,7 +167,10 @@ function App() {
       user,
       errors: [],
     });
-    setSignupErrors(errors);
+    setSignupResponse({
+      success: false,
+      errors,
+    });
   }
 
   async function submitUser(user) {
@@ -174,7 +180,7 @@ function App() {
       if (!response.success) {
         handleUserErrors(user, response.errors);
       } else {
-        setSignupErrors([]);
+        setSignupResponse(response);
         onSubmit(user);
       }
     } catch (error) {
@@ -185,17 +191,18 @@ function App() {
   async function modifyUser(user) {
     try {
       const response = await updateUser(user, loginState.token);
-      if (!response.success) {
-        setSignupErrors(response.errors);
-      } else {
+      setSignupResponse(response);
+      if (response.success) {
         updateAuthorInPosts(user);
-        setSignupErrors([]);
         const newLoginState = JSON.parse(JSON.stringify(loginState));
         newLoginState.user = user;
         setLoginState(newLoginState);
       }
     } catch (error) {
-      setSignupErrors([{ msg: error.message }]);
+      setSignupResponse({
+        success: false,
+        errors: [{ msg: error.message }],
+      });
     }
   }
 
@@ -322,7 +329,10 @@ function App() {
   }
 
   function deleteErrors() {
-    setSignupErrors([]);
+    setSignupResponse({
+      success: false,
+      errors: [],
+    });
   }
 
   function openModal() {
@@ -406,11 +416,10 @@ function App() {
             path="/signup"
             element={
               <Signup
-                currentUser={loginState.user}
+                loginState={loginState}
                 submit={submitUser}
                 update={modifyUser}
-                errors={signupErrors}
-                loginSuccess={loginState.success}
+                response={signupResponse}
                 deleteErrors={deleteErrors}
               />
             }

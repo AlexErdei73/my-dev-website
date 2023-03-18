@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 const AppMenu = (props) => {
-  const LOGO = "ALEX'S DEV";
+  const LOGO = "Alex73 DEV";
 
   const { loginSuccess } = props;
 

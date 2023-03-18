@@ -71,6 +71,7 @@
 .post {
   margin-left: 250px;
   padding: 10px;
+  padding-top: 0;
   display: flex;
   flex-direction: row;
   gap: 10px;

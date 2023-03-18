@@ -1,10 +1,22 @@
 @import "../App.less";
 
 @author-bg-color: lightgray;
+@padding: 5rem;
 
 .author {
-  flex: 1 1 0;
-  width: 100%;
-  padding: 5rem;
-  background-color: @author-bg-color;
+	flex: 1 1 0;
+	width: 100%;
+	padding: @padding;
+	background-color: @author-bg-color;
+	h1 {
+		font-size: xx-large;
+		margin: 0;
+	}
+	h2 {
+		margin: 0;
+	}
+	p {
+		margin: 0;
+		max-width: @post-width + @navigation-width - @padding;
+	}
 }

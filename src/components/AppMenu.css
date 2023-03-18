@@ -74,6 +74,7 @@
   left: 0;
   height: 100vh;
   background-color: lightgray;
+  border-bottom: 2px solid whitesmoke;
 }
 .nav ul {
   list-style: none;

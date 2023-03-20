@@ -1,3 +1,7 @@
+@import "../App.less";
+
+@btn-width: 75px;
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -13,4 +17,27 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.modal-body {
+	.flex-col();
+	margin: @gap;
+	align-items: center;
+	&__button-container {
+		width: 100%;
+		.flex-row();
+		justify-content: space-around;
+	}
+	&__button {
+		.button-sm(@btn-width);
+	}
+	&__button:hover {
+		.button-hover();
+	}
+	&__button--delete {
+		.button-delete(@btn-width) !important;
+	}
+	&__button--delete:hover {
+		.button-delete-hover() !important;
+	}
 }

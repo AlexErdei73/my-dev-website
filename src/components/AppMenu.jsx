@@ -27,7 +27,7 @@ const AppMenu = (props) => {
 				</li>
 				<li className="nav__item">
 					<Link to="/my-dev-website/signup">
-						{loginSuccess ? "Update User" : "Sign Up"}
+						{loginSuccess ? "User" : "Sign Up"}
 					</Link>
 				</li>
 			</ul>

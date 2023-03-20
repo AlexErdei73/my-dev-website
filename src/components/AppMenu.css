@@ -26,48 +26,6 @@
 .button:hover {
   background-color: #0a32b8;
 }
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 10px;
-  align-items: center;
-}
-.modal-body__button-container {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 0;
-  justify-content: space-around;
-}
-.modal-body__button {
-  border: none;
-  background-color: #07237e;
-  color: whitesmoke;
-  padding: 10px 20px;
-  width: fit-content;
-  border-radius: 10px;
-  padding: 5px 10px;
-}
-.modal-body__button:hover {
-  background-color: #0a32b8;
-}
-.modal-body__button--delete {
-  border: none !important;
-  background-color: #07237e !important;
-  color: whitesmoke !important;
-  padding: 10px 20px !important;
-  width: fit-content !important;
-  border-radius: 10px !important;
-  padding: 5px 10px !important;
-  background-color: pink !important;
-  color: darkred !important;
-  border: 1px solid darkred !important;
-}
-.modal-body__button--delete:hover {
-  color: red !important;
-  border-color: red !important;
-}
 .nav {
   position: fixed;
   top: 0;
@@ -87,6 +45,7 @@
 }
 .nav__logo {
   flex-basis: content;
+  flex-shrink: 0;
   font-size: 28px;
   border: 2px solid #07237e;
   border-radius: 10px;
@@ -146,6 +105,9 @@
   .new-post {
     margin: 5rem 0 !important;
   }
+  .logout {
+    width: 100% !important;
+  }
 }
 @media screen and (max-width: 600px) {
   .nav__logo {
@@ -185,6 +147,9 @@
   .posts,
   .new-post {
     margin: 5rem 0 !important;
+  }
+  .logout {
+    width: 100% !important;
   }
 }
 /*# sourceMappingURL=AppMenu.css.map */

@@ -14,7 +14,7 @@ const NewPost = (props) => {
   useEffect(() => {
     if (response.success) {
       deleteResponse();
-      navigate("/login");
+      navigate("/my-dev-website/login");
     } else {
       setTitle(response.post.title);
     }

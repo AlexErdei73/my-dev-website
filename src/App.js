@@ -25,7 +25,7 @@ import {
 import ErrorDlg from "./components/ErrorDlg";
 
 function App() {
-  const ABOUT_ID = "644d35f7efc2a3029df288cb";
+  const ABOUT_ID = "64b3b9fc11a583b26b48b476";
 
   const [showModal, setShowModal] = useState(false);
 

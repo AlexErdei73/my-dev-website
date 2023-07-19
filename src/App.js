@@ -115,7 +115,7 @@ function App() {
       const newPosts = JSON.parse(JSON.stringify(posts));
       newPosts.splice(index, 1);
       setPosts(newPosts);
-      setIndex(0);
+      setIndex(newPosts.findIndex((post) => post._id === ABOUT_ID));
       deleteResponse();
       closeModal();
     }
@@ -125,6 +125,7 @@ function App() {
     const newAboutPost = posts.find((post) => post._id === ABOUT_ID);
     if (!newAboutPost) return;
     setAboutPost(newAboutPost);
+    setIndex(posts.findIndex((post) => post._id === ABOUT_ID));
   }, [posts]);
 
   async function onSubmit(loginForm) {

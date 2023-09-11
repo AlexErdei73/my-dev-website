@@ -356,11 +356,11 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <Router basename="/my-dev-website">
         <AppMenu loginSuccess={loginState.success} />
         <Routes>
           <Route
-            path="/my-dev-website/post"
+            path="/post"
             element={
               <Post
                 post={posts[index]}
@@ -380,12 +380,9 @@ function App() {
               />
             }
           />
+          <Route path="/about" element={<About post={aboutPost} />} />
           <Route
-            path="/my-dev-website/about"
-            element={<About post={aboutPost} />}
-          />
-          <Route
-            path="/my-dev-website/"
+            path="/"
             element={
               <Posts
                 posts={posts}
@@ -401,7 +398,7 @@ function App() {
             }
           />
           <Route
-            path="/my-dev-website/login"
+            path="/login"
             element={
               <Login
                 submit={onSubmit}
@@ -417,7 +414,7 @@ function App() {
             }
           />
           <Route
-            path="/my-dev-website/signup"
+            path="/signup"
             element={
               <Signup
                 loginState={loginState}
@@ -429,7 +426,7 @@ function App() {
             }
           />
           <Route
-            path="/my-dev-website/new-post"
+            path="/new-post"
             element={
               <NewPost
                 submit={createPost}

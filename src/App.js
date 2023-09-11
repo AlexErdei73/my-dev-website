@@ -110,6 +110,7 @@ function App() {
       post.author = { ...loginState.user };
       newPosts.push(post);
       setPosts(newPosts);
+      setIndex(newPosts.length - 1);
     }
     if (type === "DELETE" && success) {
       const newPosts = JSON.parse(JSON.stringify(posts));
@@ -125,8 +126,11 @@ function App() {
     const newAboutPost = posts.find((post) => post._id === ABOUT_ID);
     if (!newAboutPost) return;
     setAboutPost(newAboutPost);
-    setIndex(posts.findIndex((post) => post._id === ABOUT_ID));
   }, [posts]);
+
+  useEffect(() => {
+    setIndex(posts.findIndex((post) => post._id === aboutPost._id));
+  }, [aboutPost]);
 
   async function onSubmit(loginForm) {
     const { username, password } = loginForm;

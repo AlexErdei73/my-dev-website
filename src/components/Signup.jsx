@@ -19,7 +19,7 @@ const Signup = (props) => {
 
 	useEffect(() => {
 		if (!success) return;
-		navigate("/my-dev-website/login");
+		navigate("/login");
 	}, [success]);
 
 	function handleChange(event) {

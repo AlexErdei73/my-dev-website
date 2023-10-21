@@ -1,4 +1,4 @@
-const BASE_URL = "https://radiant-crag-39178.herokuapp.com";
+const BASE_URL = "https://blog-api.alexerdei.co.uk";
 
 async function getJSON(response) {
   let json;

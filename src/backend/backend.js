@@ -3,7 +3,7 @@ const BASE_URL = "https://blog-api.alexerdei.co.uk";
 async function getJSON(response) {
   let json;
   if (response.status === 401) {
-    json = { success: false, errors: [{ msg: response.statusText }] };
+    json = { success: false, errors: [{ msg: "Unauthorized" }] };
   } else json = await response.json();
   return json;
 }
